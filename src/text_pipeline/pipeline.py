@@ -4,6 +4,7 @@ from text_pipeline.adjustments.other_adjustments import (
     add_dot_after_headings, bible_verse, expand_and_a_half,
     expand_latin_abbreviations, geo_to_george,
     insert_space_before_and_after_double_hyphen, normalize_am_and_pm,
+    normalize_coordinates_in_in_the_footprints_of_the_padres,
     normalize_degrees_and_latitudes, normalize_double_quotation_marks,
     normalize_inconsistent_year_span_in_in_the_footprints_of_the_padres,
     normalize_king_names, normalize_king_names_without_dot,
@@ -17,17 +18,18 @@ from text_pipeline.adjustments.other_adjustments import (
     other_chronicles_of_newgate_adujstments, other_haunted_london_adjustments,
     other_plant_life_adjustments, remove_colon_in_digital_time_format,
     remove_dot_after_single_capital_letters, remove_dots_of_ie,
-    remove_double_hyphen_after_colon, remove_four_hyphens,
+    remove_double_hyphen_before_or_after_colon, remove_four_hyphens,
     remove_illustrations, remove_indented_lines, remove_linebreaks,
     remove_numbers_in_square_brackets,
     remove_quotation_marks_as_itemization_in_other_cases,
     remove_quotation_marks_when_used_as_itemization, remove_repeated_spaces,
     remove_sic, remove_stars, remove_stars_and_spaces,
-    remove_underscore_characters, replace_four_hyphens_by_two,
-    replace_hyphen_between_numbers_with_to, replace_no_with_number,
-    replace_nos_with_numbers, square_brackets_to_round_brackets,
-    write_out_month_abbreviations)
+    remove_underscore_characters, replace_and_sign_with_word_and,
+    replace_four_hyphens_by_two, replace_hyphen_between_numbers_with_to,
+    replace_no_with_number, replace_nos_with_numbers,
+    square_brackets_to_round_brackets, write_out_month_abbreviations)
 
+# [^\w \.,\-"';():!?éèëæœöñôäüáàçâê]
 # [^\w .,\-"';():“”’!?éèëæœ‘öñôäüáàçâê]
 # [^\.]\.\.\.[^\. ]
 # \.[^\.]\.\.\.[^\.]
@@ -50,7 +52,8 @@ def normalize_chronicles_of_newgate(text: str) -> str:
   text = normalize_numbers(text)
   text = expand_abbreviations(text)
   text = other_chronicles_of_newgate_adujstments(text)
-  text = remove_double_hyphen_after_colon(text)
+  text = replace_and_sign_with_word_and(text)
+  text = remove_double_hyphen_before_or_after_colon(text)
   text = normalize_three_and_four_dots(text)
   text = insert_space_before_and_after_double_hyphen(text)
   text = remove_repeated_spaces(text)
@@ -84,7 +87,7 @@ def normalize_haunted_london(text: str) -> str:
   text = remove_stars_and_spaces(text)
   text = bible_verse(text)
   text = normalize_three_and_four_dots(text)
-  text = remove_double_hyphen_after_colon(text)
+  text = remove_double_hyphen_before_or_after_colon(text)
   text = insert_space_before_and_after_double_hyphen(text)
   text = remove_repeated_spaces(text)
   text = text.strip()
@@ -116,7 +119,7 @@ def normalize_plant_life(text: str) -> str:
   text = expand_abbreviations(text)
   text = expand_latin_abbreviations(text)
   text = remove_sic(text)
-  text = remove_double_hyphen_after_colon(text)
+  text = remove_double_hyphen_before_or_after_colon(text)
   text = replace_four_hyphens_by_two(text)
   text = insert_space_before_and_after_double_hyphen(text)
   text = remove_repeated_spaces(text)
@@ -127,7 +130,7 @@ def normalize_plant_life(text: str) -> str:
 def normalize_account_of_egypt(text: str) -> str:
   text = remove_linebreaks(text)
   text = remove_underscore_characters(text)
-  text = remove_double_hyphen_after_colon(text)
+  text = remove_double_hyphen_before_or_after_colon(text)
   text = insert_space_before_and_after_double_hyphen(text)
   text = remove_stars(text)
   text = remove_repeated_spaces(text)
@@ -158,11 +161,15 @@ def normalize_in_the_footprints_of_the_padres(text: str) -> str:
   text = remove_illustrations(text)
   text = square_brackets_to_round_brackets(text)
   text = remove_four_hyphens(text)
+  text = remove_double_hyphen_before_or_after_colon(text)
   text = insert_space_before_and_after_double_hyphen(text)
   text = remove_colon_in_digital_time_format(text)
   text = normalize_inconsistent_year_span_in_in_the_footprints_of_the_padres(text)
+  text = normalize_coordinates_in_in_the_footprints_of_the_padres(text)
+  text = expand_and_a_half(text)
   text = normalize_numbers(text)
-  text = remove_stars(text)
+  text = replace_and_sign_with_word_and(text)
+  text = remove_stars_and_spaces(text)
   text = remove_repeated_spaces(text)
   text = text.strip()
   return text

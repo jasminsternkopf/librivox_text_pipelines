@@ -1,6 +1,6 @@
 from text_pipeline.adjustments.other_adjustments import (
     expand_and_a_half, geo_to_george,
-    insert_space_before_and_after_double_hyphen,
+    insert_space_before_and_after_double_hyphen, normalize_coordinates_in_in_the_footprints_of_the_padres,
     normalize_degrees_and_latitudes, normalize_double_quotation_marks,
     normalize_king_names, normalize_king_names_without_dot,
     normalize_point_before_numbers, normalize_pound,
@@ -362,3 +362,9 @@ def test_normalize_single_quotation_marks_and_apostrophes__apostrophes_not_quota
   res = normalize_single_quotation_marks_and_apostrophes(text)
 
   assert res == "William III.'s reign"
+
+def test_normalize_coordinates_in_in_the_footprints_of_the_padres():
+  text = "latitude 37° 59' 5\"; longitude 122° 57-1/2'."
+  res = normalize_coordinates_in_in_the_footprints_of_the_padres(text)
+
+  assert res == "latitude 37 degrees 59 minutes 5 seconds; longitude 122 degrees 57-1/2 minutes."

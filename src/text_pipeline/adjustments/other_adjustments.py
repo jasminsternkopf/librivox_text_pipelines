@@ -133,8 +133,9 @@ def remove_underscore_characters(text: str) -> str:
   return text
 
 
-def remove_double_hyphen_after_colon(text: str) -> str:
+def remove_double_hyphen_before_or_after_colon(text: str) -> str:
   text = text.replace(":--", ": ")
+  text = text.replace("--:", ":")
   return text
 
 
@@ -173,10 +174,14 @@ def normalize_roman_numerals_in_chronicles_of_newgate(text: str) -> str:
 
 def other_chronicles_of_newgate_adujstments(text: str) -> str:
   text = text.replace("&c.", "et cetera")
-  text = text.replace(" & ", " and ")
   text = text.replace(" LL.", " LL ")
   text = text.replace("Schedule I", "Schedule one")
   text = text.replace("It was I", "It was I.")
+  return text
+
+
+def replace_and_sign_with_word_and(text: str) -> str:
+  text = text.replace(" & ", " and ")
   return text
 
 
@@ -407,4 +412,14 @@ def normalize_single_quotation_marks_and_apostrophes(text: str) -> str:
   UNUSUAL_QUOTATION_MARKS = re.compile(r"‘([^’]{2,2000})’")
   text = UNUSUAL_QUOTATION_MARKS.sub(r'"\1"', text)
   text = text.replace("’", "'")
+  return text
+
+
+def normalize_coordinates_in_in_the_footprints_of_the_padres(text: str) -> str:
+  SECONDS = re.compile(r"(\d{1,3}° \d{1,3}(-1/2)?' \d)\"")
+  MINUTES = re.compile(r" (\d{1,3}° \d{1,3}(-1/2)?)'")
+  DEGREES = re.compile(r"(\d{1,3})°")
+  text = SECONDS.sub(r"\1 seconds", text)
+  text = MINUTES.sub(r" \1 minutes", text)
+  text = DEGREES.sub(r"\1 degrees", text)
   return text

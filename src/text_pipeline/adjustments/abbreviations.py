@@ -41,6 +41,7 @@ _mappings = [
   ('ltd', 'limited'),  # kommt glaube nicht vor, keine Ahnung ob groß oder klein
   ('Col', 'Colonel'),  # kommt glaube nicht vor
   ('ft', 'fort'),  # kommt glaube nicht vor, keine Ahnung ob groß oder klein
+  ('MM', 'Messieurs')
 ]
 
 # List of (regular expression, replacement) pairs for abbreviations:
