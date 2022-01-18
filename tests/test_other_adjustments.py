@@ -1,11 +1,10 @@
-from src.text_pipeline.adjustments.other_adjustments import \
-    normalize_double_quotation_marks
 from text_pipeline.adjustments.other_adjustments import (
     expand_and_a_half, geo_to_george,
     insert_space_before_and_after_double_hyphen,
-    normalize_degrees_and_latitudes, normalize_king_names,
-    normalize_king_names_without_dot, normalize_point_before_numbers,
-    normalize_pound, normalize_roman_numerals_in_chronicles_of_newgate,
+    normalize_degrees_and_latitudes, normalize_double_quotation_marks,
+    normalize_king_names, normalize_king_names_without_dot,
+    normalize_point_before_numbers, normalize_pound,
+    normalize_roman_numerals_in_chronicles_of_newgate,
     normalize_shillings_and_pence_in_chronicles_of_newgate,
     normalize_shillings_and_pence_in_haunted_london,
     normalize_single_quotation_marks_and_apostrophes,

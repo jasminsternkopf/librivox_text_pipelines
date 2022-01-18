@@ -402,6 +402,7 @@ def normalize_double_quotation_marks(text: str) -> str:
   text = text.replace("”", "\"")
   return text
 
+
 def normalize_single_quotation_marks_and_apostrophes(text: str) -> str:
   UNUSUAL_QUOTATION_MARKS = re.compile(r"‘([^’]{2,2000})’")
   text = UNUSUAL_QUOTATION_MARKS.sub(r"\"\1\2\"". text)
