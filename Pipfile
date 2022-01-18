@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+inflect = "*"
+unidecode = "*"
+
+[dev-packages]
+text-pipeline = {editable = true, path = "."}
+pytest = "*"
+pytest-xdist = "*"
+autopep8 = "*"
+pylint = "*"
+
+[requires]
+python_version = "3.9"
