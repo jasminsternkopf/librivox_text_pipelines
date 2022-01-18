@@ -1,11 +1,13 @@
 from text_pipeline.adjustments.other_adjustments import (
     expand_and_a_half, geo_to_george,
     insert_space_before_and_after_double_hyphen,
-    normalize_degrees_and_latitudes, normalize_king_names,
-    normalize_king_names_without_dot, normalize_point_before_numbers,
-    normalize_pound, normalize_roman_numerals_in_chronicles_of_newgate,
+    normalize_degrees_and_latitudes, normalize_double_quotation_marks,
+    normalize_king_names, normalize_king_names_without_dot,
+    normalize_point_before_numbers, normalize_pound,
+    normalize_roman_numerals_in_chronicles_of_newgate,
     normalize_shillings_and_pence_in_chronicles_of_newgate,
     normalize_shillings_and_pence_in_haunted_london,
+    normalize_single_quotation_marks_and_apostrophes,
     normalize_three_and_four_dots, normalize_year_span,
     remove_dot_after_single_capital_letters, remove_illustrations,
     remove_indented_lines, remove_linebreaks,
@@ -341,15 +343,22 @@ def test_normalize_three_and_four_dots__end_of_sentence__four_dots():
   assert remove_repeated_spaces(res) == "Hello world."
 
 
-# def test_normalize_double_quotation_marks():
-#   text = "“The Royal Diversion.”"
-#   res = normalize_double_quotation_marks(text)
+def test_normalize_double_quotation_marks():
+  text = "“The Royal Diversion.”"
+  res = normalize_double_quotation_marks(text)
 
-#   assert res == "\"The Royal Diversion.\""
+  assert res == "\"The Royal Diversion.\""
 
 
-# def test_normalize_single_quotation_marks_and_apostrophes():
-#   text = "‘poor little chuck!’"
-#   res = normalize_single_quotation_marks_and_apostrophes(text)
+def test_normalize_single_quotation_marks_and_apostrophes():
+  text = "‘poor little chuck!’"
+  res = normalize_single_quotation_marks_and_apostrophes(text)
 
-#   assert res == "\"poor little chuck!\""
+  assert res == "\"poor little chuck!\""
+
+
+def test_normalize_single_quotation_marks_and_apostrophes__apostrophes_not_quotation_marks():
+  text = "William III.’s reign"
+  res = normalize_single_quotation_marks_and_apostrophes(text)
+
+  assert res == "William III.'s reign"

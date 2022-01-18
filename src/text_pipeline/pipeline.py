@@ -4,7 +4,7 @@ from text_pipeline.adjustments.other_adjustments import (
     add_dot_after_headings, bible_verse, expand_and_a_half,
     expand_latin_abbreviations, geo_to_george,
     insert_space_before_and_after_double_hyphen, normalize_am_and_pm,
-    normalize_degrees_and_latitudes,
+    normalize_degrees_and_latitudes, normalize_double_quotation_marks,
     normalize_inconsistent_year_span_in_in_the_footprints_of_the_padres,
     normalize_king_names, normalize_king_names_without_dot,
     normalize_point_before_numbers, normalize_pound,
@@ -12,6 +12,7 @@ from text_pipeline.adjustments.other_adjustments import (
     normalize_roman_numerals_in_chronicles_of_newgate,
     normalize_shillings_and_pence_in_chronicles_of_newgate,
     normalize_shillings_and_pence_in_haunted_london,
+    normalize_single_quotation_marks_and_apostrophes,
     normalize_three_and_four_dots, normalize_today_and_tomorrow,
     other_chronicles_of_newgate_adujstments, other_haunted_london_adjustments,
     other_plant_life_adjustments, remove_colon_in_digital_time_format,
@@ -73,6 +74,8 @@ def normalize_haunted_london(text: str) -> str:
   text = replace_nos_with_numbers(text)
   text = normalize_king_names(text)
   text = other_haunted_london_adjustments(text)
+  text = normalize_double_quotation_marks(text)
+  text = normalize_single_quotation_marks_and_apostrophes(text)
   text = remove_dot_after_single_capital_letters(text)
   text = replace_hyphen_between_numbers_with_to(text)
   text = normalize_numbers(text)

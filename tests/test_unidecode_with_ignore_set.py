@@ -1,4 +1,4 @@
-from text_pipeline.adjustments.unidecode_with_ignoreset import \
+from text_pipeline.adjustments.unidecode_with_ignore_set import \
     unidecode_with_ignore_set
 
 
