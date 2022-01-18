@@ -1,4 +1,4 @@
-from text_pipeline.adjustments.other_adjustments import (  # normalize_single_quotation_marks_and_apostrophes,
+from text_pipeline.adjustments.other_adjustments import (
     expand_and_a_half, geo_to_george,
     insert_space_before_and_after_double_hyphen,
     normalize_degrees_and_latitudes, normalize_king_names,
@@ -13,7 +13,7 @@ from text_pipeline.adjustments.other_adjustments import (  # normalize_single_qu
     remove_quotation_marks_as_itemization_in_other_cases,
     remove_quotation_marks_when_used_as_itemization, remove_repeated_spaces,
     remove_stars_and_spaces, remove_underscore_characters,
-    replace_hyphen_between_numbers_with_to, replace_no_with_number, testfunk,
+    replace_hyphen_between_numbers_with_to, replace_no_with_number,
     write_out_month_abbreviations)
 
 
