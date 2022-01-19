@@ -1,4 +1,5 @@
 import re
+from typing import List, Pattern, Tuple
 
 NUMBERS_IN_SQUARE_BRACKETS = re.compile(r"\[\d+\]")  # egal ob r"..." oder nur "..."
 ILLUSTRATION = re.compile(r"\[Illustration[^\]]*\]")
@@ -383,7 +384,7 @@ def normalize_inconsistent_year_span_in_in_the_footprints_of_the_padres(text: st
   return text
 
 
-MONTH_MAPPINGS = [
+MONTH_MAPPINGS: List[Tuple[Pattern, str]] = [
   (re.compile("jan\.", re.IGNORECASE), "January"),
   (re.compile("feb\.", re.IGNORECASE), "February"),
   (re.compile("mar\.", re.IGNORECASE), "March"),
@@ -398,7 +399,7 @@ MONTH_MAPPINGS = [
 
 def write_out_month_abbreviations(text: str) -> str:
   for month in MONTH_MAPPINGS:
-    text = month[0].sub(month[1], text, re.IGNORECASE)
+    text = month[0].sub(month[1], text)
   return text
 
 

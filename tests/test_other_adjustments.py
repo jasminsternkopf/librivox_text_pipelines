@@ -1,6 +1,7 @@
 from text_pipeline.adjustments.other_adjustments import (
     expand_and_a_half, geo_to_george,
-    insert_space_before_and_after_double_hyphen, normalize_coordinates_in_in_the_footprints_of_the_padres,
+    insert_space_before_and_after_double_hyphen,
+    normalize_coordinates_in_in_the_footprints_of_the_padres,
     normalize_degrees_and_latitudes, normalize_double_quotation_marks,
     normalize_king_names, normalize_king_names_without_dot,
     normalize_point_before_numbers, normalize_pound,
@@ -287,6 +288,13 @@ def test_write_out_month_abbreviations__nothing_changes():
   assert res == text
 
 
+def test_write_out_month_abbreviations__jan_several_times():
+  text = "JAN. JAN. JAN."
+  res = write_out_month_abbreviations(text)
+
+  assert res == "January January January"
+
+
 def test_normalize_king_names_without_dot():
   text = "Charles III and James I, Henry V and Edward VI."
   res = normalize_king_names_without_dot(text)
@@ -362,6 +370,7 @@ def test_normalize_single_quotation_marks_and_apostrophes__apostrophes_not_quota
   res = normalize_single_quotation_marks_and_apostrophes(text)
 
   assert res == "William III.'s reign"
+
 
 def test_normalize_coordinates_in_in_the_footprints_of_the_padres():
   text = "latitude 37° 59' 5\"; longitude 122° 57-1/2'."
