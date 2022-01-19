@@ -11,6 +11,7 @@ from text_pipeline.adjustments.other_adjustments import (
     normalize_point_before_numbers, normalize_pound,
     normalize_roman_numerals_for_two_and_three,
     normalize_roman_numerals_in_chronicles_of_newgate,
+    normalize_second_and_third_when_abbr_with_d,
     normalize_shillings_and_pence_in_chronicles_of_newgate,
     normalize_shillings_and_pence_in_haunted_london,
     normalize_single_quotation_marks_and_apostrophes,
@@ -42,6 +43,7 @@ def normalize_chronicles_of_newgate(text: str) -> str:
   text = remove_illustrations(text)
   text = normalize_shillings_and_pence_in_chronicles_of_newgate(text)
   text = remove_underscore_characters(text)
+  text = remove_dots_of_ie(text)
   text = replace_no_with_number(text)
   text = geo_to_george(text)
   text = normalize_king_names(text)
@@ -81,6 +83,7 @@ def normalize_haunted_london(text: str) -> str:
   text = normalize_single_quotation_marks_and_apostrophes(text)
   text = remove_dot_after_single_capital_letters(text)
   text = replace_hyphen_between_numbers_with_to(text)
+  text = normalize_second_and_third_when_abbr_with_d(text)
   text = normalize_numbers(text)
   text = expand_abbreviations(text)
   text = expand_latin_abbreviations(text)
@@ -167,6 +170,7 @@ def normalize_in_the_footprints_of_the_padres(text: str) -> str:
   text = normalize_inconsistent_year_span_in_in_the_footprints_of_the_padres(text)
   text = normalize_coordinates_in_in_the_footprints_of_the_padres(text)
   text = expand_and_a_half(text)
+  text = normalize_second_and_third_when_abbr_with_d(text)
   text = normalize_numbers(text)
   text = replace_and_sign_with_word_and(text)
   text = remove_stars_and_spaces(text)

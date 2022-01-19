@@ -148,6 +148,34 @@ def test_geo_to_george():
   assert res == "9th George IV."
 
 
+def test_geo_to_george_with_c_and_s():
+  text = "9th Geo. III. c. 64, s. 5"
+  res = geo_to_george(text)
+
+  assert res == "9th George III. c 64, s 5"
+
+
+def test_geo_to_george_with_c_no_s():
+  text = "9th Geo. I. c. 64"
+  res = geo_to_george(text)
+
+  assert res == "9th George I. c 64"
+
+
+def test_geo_to_george_with_cap_and_s():
+  text = "9th Geo. IV. cap. 64, s. 45"
+  res = geo_to_george(text)
+
+  assert res == "9th George IV. cap 64, s 45"
+
+
+def test_geo_to_george_with_cap_no_s():
+  text = "9th Geo. IV. cap. 64"
+  res = geo_to_george(text)
+
+  assert res == "9th George IV. cap 64"
+
+
 def test_remove_indented_lines():
   text = "  [11] Hartig finds the specific gravity of the wood in a tree is\n  increased from 0-60 to 0.74 when the surrounding wood has been\n  cut down.--_Bot. Central_, vol. xxx, p. 220.\n"
   res = remove_indented_lines(text)

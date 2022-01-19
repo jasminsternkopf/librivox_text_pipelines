@@ -151,7 +151,13 @@ def replace_nos_with_numbers(text: str) -> str:
 
 
 def geo_to_george(text: str) -> str:
-  text = text.replace("Geo.", "George")
+  #text = text.replace("Geo.", "George")
+  GEO_AND_C_OR_CAP = re.compile(r"Geo\. ([IVX]{1,3}\.) (c(ap)?)\. (\d)")
+  text = GEO_AND_C_OR_CAP.sub(r"George \1 \2 \4", text)
+  S_AFTER_GEO = re.compile(r", s. (\d)")
+  text = S_AFTER_GEO.sub(r", s \1", text)
+  GEO = re.compile(r"Geo\. ([IVX]{1,3}\.)")
+  text = GEO.sub(r"George \1", text)
   return text
 
 
@@ -178,6 +184,7 @@ def other_chronicles_of_newgate_adujstments(text: str) -> str:
   text = text.replace(" LL.", " LL ")
   text = text.replace("Schedule I", "Schedule one")
   text = text.replace("It was I", "It was I.")
+  text = text.replace("Victoria, cap.", "Victoria, cap")
   return text
 
 
@@ -261,12 +268,16 @@ def other_plant_life_adjustments(text: str) -> str:
   text = text.replace("E v. Proskowetz", "E v Proskowetz")
   text = text.replace("^15", " to the fifteenth power")
   text = text.replace("to the £", "to the pound")
+  text = text.replace(" p. 47", "")
+  text = text.replace(" (see p. 304)", "")
   return text
 
 
 def other_haunted_london_adjustments(text: str) -> str:
   text = text.replace("M. Mallet", "Mister Mallet")
   text = text.replace("MSS.", "M S S")
+  text = text. replace("c. 25", "c 25")
+  text = text.replace("£9: 2: 3", "£9 2 and 3")
   return text
 
 
@@ -370,6 +381,7 @@ def remove_dot_after_single_capital_letters(text: str) -> str:
 
 def remove_dots_of_ie(text: str) -> str:
   text = text.replace("i.e.,", "i e,")
+  text = text.replace("i. e.", "i e")
   return text
 
 
@@ -423,4 +435,12 @@ def normalize_coordinates_in_in_the_footprints_of_the_padres(text: str) -> str:
   text = SECONDS.sub(r"\1 seconds", text)
   text = MINUTES.sub(r" \1 minutes", text)
   text = DEGREES.sub(r"\1 degrees", text)
+  return text
+
+
+def normalize_second_and_third_when_abbr_with_d(text: str) -> str:
+  text = text.replace("22d", "twenty-second")
+  text = text.replace("2d", "second")
+  text = text.replace("3d", "third")
+
   return text
