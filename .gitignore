@@ -132,4 +132,4 @@ dmypy.json
 data/
 normalized_files/
 .vscode
-text_pipeline_debug
+*debug
