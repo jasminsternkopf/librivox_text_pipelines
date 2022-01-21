@@ -6,7 +6,7 @@ ILLUSTRATION = re.compile(r"\[Illustration[^\]]*\]")
 REPEATED_SPACES = re.compile(r" {2,}")
 
 KING_NAMES = {"Henry", "Charles", "James", "George", "Edward",
-              "Richard", "Ferdinand", "William", "Clement", "Louis", "Napoleon", "Philip", "Thibault"}
+              "Richard", "Ferdinand", "William", "Clement", "Louis", "Napoleon", "Philip", "Thibault", "Clement", "Catharine", "Alexander", "Leo", "Henri", "Christian", "Nicholas", "Hermann", "Akbar", "Harry", "Rodolph", "Gregory", "Fred", "Urban", "Karl", "Frederic", "Paul"}
 
 KING_NUMBER_MAPPINGS = [
   (r" I\.", " the first"),
@@ -117,7 +117,7 @@ def remove_repeated_spaces(text: str) -> str:
 
 
 def normalize_shillings_and_pence_in_chronicles_of_newgate(text: str) -> str:
-  text = text.replace("1_s._", "one shilling")
+  text = text.replace(" 1_s._", " one shilling")
   text = text.replace("_s._", " shillings")
   text = text.replace("_d._", " pence")
   return text
