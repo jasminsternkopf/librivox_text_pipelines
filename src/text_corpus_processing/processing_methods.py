@@ -24,7 +24,7 @@ def create_pickle_containing_all_books(folder: Path):  # , normalizer: Callable[
     pickle.dump(books, file)
 
 
-create_pickle_containing_all_books(Path("data/librispeech-lm-corpus/corpus"))
+# create_pickle_containing_all_books(Path("data/librispeech-lm-corpus/corpus"))
 
 
 def cut_off_beginning(text: str) -> str:
@@ -60,24 +60,42 @@ def general_pipeline(text: str) -> str:
   return text
 
 
-def extract_sentences_of_all_books() -> str:
-  with open('data/all_books.pickle', 'rb') as f:
-    books = pickle.load(f)
-  new_path = get_text_files(Path("data/librispeech-lm-corpus/corpus"))
-  for book in books:
-    book_as_list_of_sentences = extract_sentences(book)
-
-
-def extract_sentences(text: str) -> str:
-  pass
-
-def normalize_all_files_in_folder(folder: Path, new_folder: Path, normalizer: Callable[[str], str]):
-  paths = get_text_files(Path("data/librispeech-lm-corpus/corpus"))
+def extract_sentences_of_all_books(folder: Path, new_folder: Path) -> str:
+  paths = get_text_files(folder)
   for path in paths:
-    text = path.read_text()
-    normalized_text = normalizer(text)
+    book = path.read_text()
+    sentencewise_book = extract_sentences(book)
     new_path_with_txt_file = new_folder / path.relative_to(folder)
     new_path = new_path_with_txt_file.parent
     if not new_path.exists():
       new_path.mkdir(parents=True)
-    new_path_with_txt_file.write_text(normalized_text, encoding="UTF-8")
+    new_path_with_txt_file.write_text(sentencewise_book, encoding="UTF-8")
+
+
+def extract_sentences(text: str) -> str:
+  text = remove_linebreaks(text)
+  text = remove_repeated_spaces(text)
+  text = text.strip()
+  #sentences = text.split(".")
+  text = text.replace(". ", ".\n")
+  text = text.replace("? ", "?\n")
+  text = text.replace("! ", "!\n")
+  text = text.replace(".\" ", ".\"\n")
+  text = text.replace("?\" ", "?\"\n")
+  text = text.replace("!\" ", "!\"\n")
+  return text
+
+
+extract_sentences_of_all_books(Path("data/librispeech-lm-corpus/corpus"),
+                               ("data/librispeech-lm-corpus/sentencewise_corpus"))
+
+# def normalize_all_files_in_folder(folder: Path, new_folder: Path, normalizer: Callable[[str], str]):
+#   paths = get_text_files(Path("data/librispeech-lm-corpus/corpus"))
+#   for path in paths:
+#     text = path.read_text()
+#     normalized_text = normalizer(text)
+#     new_path_with_txt_file = new_folder / path.relative_to(folder)
+#     new_path = new_path_with_txt_file.parent
+#     if not new_path.exists():
+#       new_path.mkdir(parents=True)
+#     new_path_with_txt_file.write_text(normalized_text, encoding="UTF-8")
