@@ -77,14 +77,17 @@ def extract_sentences(text: str) -> str:
   text = remove_linebreaks(text)
   text = remove_repeated_spaces(text)
   text = text.strip()
-  SENTENCE_ENDS = [".", "?", "!"]
-  #SENTENCE_ENDS_AND_CAPITAL_LETTER = [re.compile(fr"{end}(\"? [A-Z])") for end in SENTENCE_ENDS]
-  text = text.replace(". ", ".\n")
-  text = text.replace("? ", "?\n")
-  text = text.replace("! ", "!\n")
-  text = text.replace(".\" ", ".\"\n")
-  text = text.replace("?\" ", "?\"\n")
-  text = text.replace("!\" ", "!\"\n")
+  SENTENCE_ENDS = (".", "?", "!")
+  SENTENCE_ENDS = (re.escape(x) for x in SENTENCE_ENDS)
+  SENTENCE_ENDS_AND_CAPITAL_LETTER = (re.compile(rf"({end}\"?) ([A-Z])") for end in SENTENCE_ENDS)
+  for sentence_end in SENTENCE_ENDS_AND_CAPITAL_LETTER:
+    text = sentence_end.sub(r"\1\n\2", text)
+  # text = text.replace(". ", ".\n")
+  # text = text.replace("? ", "?\n")
+  # text = text.replace("! ", "!\n")
+  # text = text.replace(".\" ", ".\"\n")
+  # text = text.replace("?\" ", "?\"\n")
+  # text = text.replace("!\" ", "!\"\n")
   return text
 
 

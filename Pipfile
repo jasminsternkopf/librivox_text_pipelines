@@ -10,7 +10,6 @@ unidecode = "*"
 [dev-packages]
 text-pipeline = {editable = true, path = "."}
 pytest = "*"
-pytest-xdist = "*"
 autopep8 = "*"
 pylint = "*"
 
