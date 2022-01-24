@@ -36,6 +36,7 @@ def cut_off_the_end_and_everything_after_it(text: str) -> str:
 
 
 def general_pipeline(text: str) -> str:
+  text = add_dot_after_headings(text)
   text = remove_linebreaks(text)
   text = remove_numbers_in_square_brackets(text)
   text = remove_illustrations(text)
@@ -76,7 +77,8 @@ def extract_sentences(text: str) -> str:
   text = remove_linebreaks(text)
   text = remove_repeated_spaces(text)
   text = text.strip()
-  #sentences = text.split(".")
+  SENTENCE_ENDS = [".", "?", "!"]
+  #SENTENCE_ENDS_AND_CAPITAL_LETTER = [re.compile(fr"{end}(\"? [A-Z])") for end in SENTENCE_ENDS]
   text = text.replace(". ", ".\n")
   text = text.replace("? ", "?\n")
   text = text.replace("! ", "!\n")
@@ -84,6 +86,16 @@ def extract_sentences(text: str) -> str:
   text = text.replace("?\" ", "?\"\n")
   text = text.replace("!\" ", "!\"\n")
   return text
+
+
+def remove_quotation_marks_in_line_if_uneven_number_of_them(text: str) -> str:
+  sentences = text.split("\n")
+  new_sentences = []
+  for sentence in sentences:
+    if sentence.count("\"") % 2 == 1:
+      sentence = sentence.replace("\"", "")
+    new_sentences.append(sentence)
+  return new_sentences
 
 
 extract_sentences_of_all_books(Path("data/librispeech-lm-corpus/corpus"),

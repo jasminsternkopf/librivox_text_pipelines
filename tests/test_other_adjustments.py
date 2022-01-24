@@ -1,5 +1,5 @@
 from text_pipeline.adjustments.other_adjustments import (
-    expand_and_a_half, geo_to_george,
+    add_dot_after_headings, expand_and_a_half, geo_to_george,
     insert_space_before_and_after_double_hyphen,
     normalize_coordinates_in_in_the_footprints_of_the_padres,
     normalize_degrees_and_latitudes, normalize_double_quotation_marks,
@@ -405,3 +405,17 @@ def test_normalize_coordinates_in_in_the_footprints_of_the_padres():
   res = normalize_coordinates_in_in_the_footprints_of_the_padres(text)
 
   assert res == "latitude 37 degrees 59 minutes 5 seconds; longitude 122 degrees 57-1/2 minutes."
+
+
+def test_add_dot_after_headings():
+  text = "\nCROSSING THE ISTHMUS\n"
+  res = add_dot_after_headings(text)
+
+  assert res == "\nCROSSING THE ISTHMUS.\n"
+
+
+def test_add_dot_after_headings__dot_already_there_not_added():
+  text = "\nCROSSING THE ISTHMUS.\n"
+  res = add_dot_after_headings(text)
+
+  assert res == text
