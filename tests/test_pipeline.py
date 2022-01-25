@@ -11,7 +11,7 @@ def test_normalize_chronicles_of_newgate__text_is_empty():
   assert res == ""
 
 
-def test_normalize_chronicles_of_newgate():
+def xtest_normalize_chronicles_of_newgate():
   file = get_text_files("data/chronicles_of_newgate")
   path = file[5]
   text = path.read_text()

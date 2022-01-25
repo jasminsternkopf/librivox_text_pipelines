@@ -107,10 +107,10 @@ def test_replace_no_with_number__no_starting_with_small_letter():
 
 
 def test_normalize_king_names():
-  text = "Henry I. was the brother of Charles IV., who was William XIII.'s cousin and Fred IX.'s uncle."
+  text = "Henry I. was the brother of Charles IV., who was William XIII.'s cousin and Abc IX.'s uncle."
   res = normalize_king_names(text)
 
-  assert res == "Henry the first was the brother of Charles the fourth, who was William the thirteenth's cousin and Fred IX.'s uncle."
+  assert res == "Henry the first was the brother of Charles the fourth, who was William the thirteenth's cousin and Abc IX.'s uncle."
 
 
 def test_normalize_roman_numberals__in_chronicles_of_newgate():
