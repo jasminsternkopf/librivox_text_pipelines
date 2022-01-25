@@ -133,3 +133,5 @@ data/
 normalized_files/
 .vscode
 *debug
+
+*.pickle
