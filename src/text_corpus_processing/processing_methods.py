@@ -24,7 +24,7 @@ def create_pickle_containing_all_books(folder: Path):  # , normalizer: Callable[
     pickle.dump(books, file)
 
 
-create_pickle_containing_all_books(Path("../DATA/data/librispeech-lm-corpus/corpus"))
+# create_pickle_containing_all_books(Path("../DATA/data/librispeech-lm-corpus/corpus"))
 
 
 def cut_off_beginning(text: str) -> str:
@@ -73,7 +73,7 @@ def extract_sentences_of_all_books(folder: Path, new_folder: Path) -> str:
     new_path_with_txt_file.write_text(sentencewise_book, encoding="UTF-8")
 
 
-def extract_sentences(text: str) -> str:
+def extract_sentences_old(text: str) -> str:
   text = remove_linebreaks(text)
   text = remove_repeated_spaces(text)
   text = text.strip()
@@ -91,6 +91,22 @@ def extract_sentences(text: str) -> str:
   return text
 
 
+def extract_sentences(text: str) -> str:
+  text = remove_linebreaks(text)
+  text = expand_abbreviations(text)
+  text = remove_dot_after_single_capital_letters(text)
+  text = remove_repeated_spaces(text)
+  text = text.strip()
+  SENTENCE_ENDS = (".", "?", "!")
+  SENTENCE_ENDS = (re.escape(x) for x in SENTENCE_ENDS)
+  SENTENCE_ENDS_AND_CAPITAL_LETTER = (re.compile(
+    rf"({end}\"?)(?: |\-\-|\.\.\.)(\"?[A-Z])") for end in SENTENCE_ENDS)
+  for sentence_end in SENTENCE_ENDS_AND_CAPITAL_LETTER:
+    text = sentence_end.sub(r"\1\n\2", text)
+  text = remove_quotation_marks_in_line_if_uneven_number_of_them(text)
+  return text
+
+
 def remove_quotation_marks_in_line_if_uneven_number_of_them(text: str) -> str:
   sentences = text.split("\n")
   new_sentences = []
@@ -98,10 +114,12 @@ def remove_quotation_marks_in_line_if_uneven_number_of_them(text: str) -> str:
     if sentence.count("\"") % 2 == 1:
       sentence = sentence.replace("\"", "")
     new_sentences.append(sentence)
-  return new_sentences
+  new_sentences_single_string = "\n".join(new_sentences)
+  return new_sentences_single_string
 
 
-# extract_sentences_of_all_books(Path("data/librispeech-lm-corpus/corpus"),("data/librispeech-lm-corpus/sentencewise_corpus"))
+extract_sentences_of_all_books(Path("../DATA/data/librispeech-lm-corpus/corpus"),
+                               ("../DATA/data/librispeech-lm-corpus/sentencewise_corpus"))
 
 # def normalize_all_files_in_folder(folder: Path, new_folder: Path, normalizer: Callable[[str], str]):
 #   paths = get_text_files(Path("data/librispeech-lm-corpus/corpus"))
