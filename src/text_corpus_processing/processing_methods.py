@@ -19,12 +19,12 @@ def create_pickle_containing_all_books(folder: Path):  # , normalizer: Callable[
   for path in paths:
     book = path.read_text()
     books.append(book)
-    #normalized_text = normalizer(book)
-  with open('data/all_books.pickle', 'wb') as file:
+    # normalized_text = normalizer(book)
+  with open('all_books.pickle', 'wb') as file:
     pickle.dump(books, file)
 
 
-# create_pickle_containing_all_books(Path("data/librispeech-lm-corpus/corpus"))
+create_pickle_containing_all_books(Path("../DATA/data/librispeech-lm-corpus/corpus"))
 
 
 def cut_off_beginning(text: str) -> str:
@@ -47,8 +47,8 @@ def general_pipeline(text: str) -> str:
   text = replace_no_with_number(text)
   text = geo_to_george_general(text)
   text = normalize_king_names(text)
-  #text = remove_dot_after_single_capital_letters(text)
-  #text = normalize_am_and_pm(text)
+  # text = remove_dot_after_single_capital_letters(text)
+  # text = normalize_am_and_pm(text)
   text = replace_hyphen_between_numbers_with_to(text)
   text = normalize_numbers(text)
   text = expand_abbreviations(text)
@@ -101,8 +101,7 @@ def remove_quotation_marks_in_line_if_uneven_number_of_them(text: str) -> str:
   return new_sentences
 
 
-extract_sentences_of_all_books(Path("data/librispeech-lm-corpus/corpus"),
-                               ("data/librispeech-lm-corpus/sentencewise_corpus"))
+# extract_sentences_of_all_books(Path("data/librispeech-lm-corpus/corpus"),("data/librispeech-lm-corpus/sentencewise_corpus"))
 
 # def normalize_all_files_in_folder(folder: Path, new_folder: Path, normalizer: Callable[[str], str]):
 #   paths = get_text_files(Path("data/librispeech-lm-corpus/corpus"))
