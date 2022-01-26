@@ -3,6 +3,7 @@ from pathlib import Path
 
 from text_corpus_processing.search_pattern_in_books import (
     process_matches, search_pattern_in_all_books,
+    search_pattern_in_all_books_and_name_with_first_letter_capital_rest_small_before,
     search_pattern_in_all_books_and_word_after,
     search_pattern_in_all_books_and_word_before,
     search_pattern_in_all_books_and_word_before_and_after, write_in_txt_file)
@@ -204,3 +205,19 @@ def test_search_pattern_in_all_books_and_word_after_with_new_lines():
   res = list(res)
 
   assert res == [" II. from", "II. HEADLINE"]
+
+
+def test_search_pattern_in_all_books_and_name_with_first_letter_capital_rest_small_before():
+  books = [
+    "abc\nHENRY II.\ndef",
+    "abc\nHenry II.\ndef",
+    "abc\nNapoleon II. from France\ndef",
+    "abc\nHenry III. from England\ndef",
+    "abc\nII. HEADLINE\ndef"
+  ]
+  pattern = "II\."
+  res = search_pattern_in_all_books_and_name_with_first_letter_capital_rest_small_before(
+    pattern, books)
+  res = list(res)
+
+  assert res == ["Henry II.", "Napoleon II."]

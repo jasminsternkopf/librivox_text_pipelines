@@ -52,6 +52,27 @@ def search_pattern_in_all_books_and_word_before(pattern: str, books: Iterable[st
       yield match
 
 
+def search_pattern_in_all_books_and_name_before(pattern: str, books: Iterable[str]):
+  pattern_and_word_before_and_after = re.compile(
+    rf"(?:[A-Z]\w* ){pattern}(?: |$)", re.MULTILINE)
+  for book in books:
+    matches = pattern_and_word_before_and_after.findall(book)
+    for match in matches:
+      yield match
+
+
+def search_pattern_in_all_books_and_name_with_first_letter_capital_rest_small_before(pattern: str, books: Iterable[str]):
+  pattern_and_word_before_and_after = re.compile(
+    rf"(?:[A-Z][a-z]+ ){pattern}(?: |$)", re.MULTILINE)
+  for book in books:
+    matches = pattern_and_word_before_and_after.findall(book)
+    for match in matches:
+      if match[-1] == " ":
+        yield match[:-1]
+      else:
+        yield match
+
+
 def search_pattern_in_all_books_and_word_after(pattern: str, books: Iterable[str]):
   pattern_and_word_before_and_after = re.compile(
     rf"(?: |^){pattern}(?: \w+)", re.MULTILINE)
