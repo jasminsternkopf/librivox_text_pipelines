@@ -8,7 +8,7 @@ from text_pipeline.adjustments.numbers import normalize_numbers
 from text_pipeline.adjustments.LJ_and_DW_adjustments import *
 from text_pipeline.txt_files_reading import get_text_files
 
-from text_corpus_processing.additional_adjustments import (
+from text_pipeline.additional_adjustments import (
     geo_to_george_general, replace_eg_with_for_example,
     replace_ie_with_that_is)
 

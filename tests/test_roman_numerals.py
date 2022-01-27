@@ -1,4 +1,4 @@
-from text_corpus_processing.roman_numerals import roman_units
+from text_pipeline.roman_numerals import roman_units
 
 
 def test_roman_units():
