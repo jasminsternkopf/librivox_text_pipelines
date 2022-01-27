@@ -225,7 +225,7 @@ def test_normalize_year_span__do_not_normalize():
   assert res == text
 
 
-def test_normalize_year_span__do_not_normalize():
+def test_normalize_year_span__add_second_last_digit():
   text = "1753-4."
   res = normalize_year_span(text)
 
@@ -295,7 +295,7 @@ def test_remove_dot_after_single_capital_letters__do_not_remove():
   assert res == text
 
 
-def test_remove_dot_after_single_capital_letters__do_not_remove():
+def test_remove_dot_after_single_capital_letters__with_double_hyphen():
   text = "\"N.B.--Front seats reserved for ladies!\""
   res = remove_dot_after_single_capital_letters(text)
 

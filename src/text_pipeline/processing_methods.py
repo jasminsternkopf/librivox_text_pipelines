@@ -4,13 +4,12 @@ from pathlib import Path
 from typing import Callable, List
 
 from text_pipeline.adjustments.abbreviations import expand_abbreviations
-from text_pipeline.adjustments.numbers import normalize_numbers
 from text_pipeline.adjustments.LJ_and_DW_adjustments import *
-from text_pipeline.txt_files_reading import get_text_files
-
-from text_pipeline.additional_adjustments import (
+from text_pipeline.adjustments.numbers import normalize_numbers
+from text_pipeline.adjustments.textcorpus_adjustments import (
     geo_to_george_general, replace_eg_with_for_example,
     replace_ie_with_that_is)
+from text_pipeline.txt_files_reading import get_text_files
 
 
 def create_pickle_containing_all_books(folder: Path):  # , normalizer: Callable[[str], str]):
@@ -118,8 +117,9 @@ def remove_quotation_marks_in_line_if_uneven_number_of_them(text: str) -> str:
   return new_sentences_single_string
 
 
-extract_sentences_of_all_books(Path("../DATA/data/librispeech-lm-corpus/corpus"),
-                               ("../DATA/data/librispeech-lm-corpus/sentencewise_corpus"))
+if __name__ == "__main__":
+  extract_sentences_of_all_books(Path("../DATA/data/librispeech-lm-corpus/corpus"),
+                                 ("../DATA/data/librispeech-lm-corpus/sentencewise_corpus"))
 
 # def normalize_all_files_in_folder(folder: Path, new_folder: Path, normalizer: Callable[[str], str]):
 #   paths = get_text_files(Path("data/librispeech-lm-corpus/corpus"))
