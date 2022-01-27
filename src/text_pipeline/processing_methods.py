@@ -5,7 +5,7 @@ from typing import Callable, List
 
 from text_pipeline.adjustments.abbreviations import expand_abbreviations
 from text_pipeline.adjustments.numbers import normalize_numbers
-from text_pipeline.adjustments.other_adjustments import *
+from text_pipeline.adjustments.LJ_and_DW_adjustments import *
 from text_pipeline.txt_files_reading import get_text_files
 
 from text_corpus_processing.additional_adjustments import (

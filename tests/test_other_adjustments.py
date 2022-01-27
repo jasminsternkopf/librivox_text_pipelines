@@ -1,4 +1,4 @@
-from text_pipeline.adjustments.other_adjustments import (
+from text_pipeline.adjustments.LJ_and_DW_adjustments import (
     add_dot_after_headings, expand_and_a_half, geo_to_george,
     insert_space_before_and_after_double_hyphen,
     normalize_coordinates_in_in_the_footprints_of_the_padres,
