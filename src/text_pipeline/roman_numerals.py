@@ -1,9 +1,5 @@
-import pickle
-import re
 from typing import List
 
-# with open('all_books.pickle', 'rb') as f:
-#   books = pickle.load(f)
 
 
 def roman_numerals_for_a_certain_power_of_ten(power_of_ten: str, five_times_power_of_ten: str, next_power_of_ten: str) -> List[str]:
@@ -34,19 +30,3 @@ def get_all_roman_numerals_up_to_N(N: int = 99) -> List[str]:
   tens = roman_tens()
   all_combinations = [ten + unit for ten in tens for unit in units]
   return all_combinations[1:N + 1]
-
-  # def roman_units() -> List[str]:
-  #   all_roman_units = ["IV", "IX"]
-  #   for no_of_ones in range(4):
-  #     for no_of_fives in range(2):
-  #       roman_numeral = "V" * no_of_fives + "I" * no_of_ones
-  #       all_roman_units.append(roman_numeral)
-  #   return all_roman_units
-
-  # def roman_tens() -> List[str]:
-  #   all_roman_units = ["IV", "IX"]
-  #   for no_of_ones in range(4):
-  #     for no_of_fives in range(2):
-  #       roman_numeral = "V" * no_of_fives + "X" * no_of_ones
-  #       all_roman_units.append(roman_numeral)
-  #   return all_roman_units

@@ -7,6 +7,7 @@ name = "pypi"
 inflect = "*"
 unidecode = "*"
 nltk = "*"
+spacy = "*"
 
 [dev-packages]
 text-pipeline = {editable = true, path = "."}

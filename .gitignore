@@ -135,3 +135,4 @@ normalized_files/
 *debug
 
 *.pickle
+*.txt
