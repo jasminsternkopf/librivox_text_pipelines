@@ -29,7 +29,10 @@ def search_pattern_in_all_books_and_word_before(pattern: str, books: Iterable[st
   for book in books:
     matches = pattern_and_word_before_and_after.findall(book)
     for match in matches:
-      yield match
+      if match[-1] == " ":
+        yield match[:-1]
+      else:
+        yield match
 
 
 def search_pattern_in_all_books_and_name_before(pattern: str, books: Iterable[str]):
@@ -38,7 +41,10 @@ def search_pattern_in_all_books_and_name_before(pattern: str, books: Iterable[st
   for book in books:
     matches = pattern_and_word_before_and_after.findall(book)
     for match in matches:
-      yield match
+      if match[-1] == " ":
+        yield match[:-1]
+      else:
+        yield match
 
 
 def search_pattern_in_all_books_and_name_with_first_letter_capital_rest_small_before(pattern: str, books: Iterable[str]):
@@ -59,7 +65,10 @@ def search_pattern_in_all_books_and_word_after(pattern: str, books: Iterable[str
   for book in books:
     matches = pattern_and_word_before_and_after.findall(book)
     for match in matches:
-      yield match
+      if match[-1] == " ":
+        yield match[:-1]
+      else:
+        yield match
 
 
 def process_matches(matches: Iterator):

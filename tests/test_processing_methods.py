@@ -1,4 +1,4 @@
-from text_pipeline.processing_methods import (
+from text_pipeline.sentence_extraction import (
     extract_sentences, remove_quotation_marks_in_line_if_uneven_number_of_them)
 
 

@@ -134,7 +134,7 @@ def test_search_pattern_in_all_books_and_word_before():
   res = search_pattern_in_all_books_and_word_before(pattern, books)
   res = list(res)
 
-  assert res == ["Henry II.", "Napoleon II. "]
+  assert res == ["Henry II.", "Napoleon II."]
 
 
 def test_search_pattern_in_all_books_and_word_before_without_dot():
@@ -148,7 +148,7 @@ def test_search_pattern_in_all_books_and_word_before_without_dot():
   res = search_pattern_in_all_books_and_word_before(pattern, books)
   res = list(res)
 
-  assert res == ["Henry II", "Napoleon II "]
+  assert res == ["Henry II", "Napoleon II"]
 
 
 def test_search_pattern_in_all_books_and_word_before_with_new_lines():
@@ -162,7 +162,7 @@ def test_search_pattern_in_all_books_and_word_before_with_new_lines():
   res = search_pattern_in_all_books_and_word_before(pattern, books)
   res = list(res)
 
-  assert res == ["Henry II.", "Napoleon II. "]
+  assert res == ["Henry II.", "Napoleon II."]
 
 
 def test_search_pattern_in_all_books_and_word_before__with_new_lines__without_dots():
@@ -176,7 +176,7 @@ def test_search_pattern_in_all_books_and_word_before__with_new_lines__without_do
   res = search_pattern_in_all_books_and_word_before(pattern, books)
   res = list(res)
 
-  assert res == ["Henry II", "Napoleon II "]
+  assert res == ["Henry II", "Napoleon II"]
 
 
 def test_search_pattern_in_all_books_and_word_after():
