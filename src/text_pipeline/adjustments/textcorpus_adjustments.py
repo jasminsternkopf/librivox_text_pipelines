@@ -74,5 +74,6 @@ def add_the_between_king_name_and_roman_numeral(text: str, king_names: Iterable[
 
 
 def normalize_our_king_names(text: str) -> str:
-  king_names = get_list_out_of_txt_file("data/name_corpus")
+  king_names = get_list_out_of_txt_file("data/name_corpus.txt")
   text = normalize_king_names_general(text, king_names)
+  return text

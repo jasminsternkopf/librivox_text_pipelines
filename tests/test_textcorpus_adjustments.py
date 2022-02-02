@@ -2,6 +2,7 @@ from text_pipeline.adjustments.textcorpus_adjustments import (
     add_the_between_king_name_and_roman_numeral, normalize_king_names_general,
     normalize_our_king_names)
 
+# region king names
 
 def test_add_the_between_king_name_and_roman_numeral():
   text = "Charles II, Paul IVth and Henry III."
@@ -71,3 +72,18 @@ def test_normalize_king_names_general__fourth_with_different_versions():
   res = normalize_king_names_general(text, {"Charles", "Henry"})
 
   assert res == "Charles the fourth, Charles the fourth Charles the fourth "
+
+
+def test_normalize_our_king_names():
+  text = "Sigismund XIX was a king."
+  res = normalize_our_king_names(text)
+
+  assert res == "Sigismund the nineteenth was a king."
+
+# endregion
+
+# region money
+
+
+
+# endregion
