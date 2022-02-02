@@ -38,7 +38,7 @@ def normalize_pounds_shillings_and_pence(text: str) -> str:
 KING_NUMBER_MAPPINGS_WITHOUT_DOT = [
   # (re.compile(r" the I[\.st]?(\W)"), " the first"),
   (re.compile(r" the II[\.nd]{0,3}(\W)"), r" the second\1"),
-  (re.compile(r" the III[\.d]{0,2}(\W)"), r" the third\1"),
+  (re.compile(r" the III[\.rd]{0,3}(\W)"), r" the third\1"),
   (re.compile(r" the IV[\.th]{0,3}(\W)"), r" the fourth\1"),
   (re.compile(r" the V[\.th]{0,3}(\W)"), r" the fifth\1"),
   (re.compile(r" the VI[\.th]{0,3}(\W)"), r" the sixth\1"),
@@ -59,12 +59,17 @@ KING_NUMBER_MAPPINGS_WITHOUT_DOT = [
 ]
 
 
-def normalize_king_names_general(text: str, king_names: Iterable[str], max_number: int = 20):
-  king_names_conc_with_or = "|".join(king_names)
-  king_name_plus_roman_numeral = re.compile(rf"({king_names_conc_with_or}) ([XVI]{{2,5}})\.?")
-  text = king_name_plus_roman_numeral.sub(rf"\1 the \2III", text)
+def normalize_king_names_general(text: str, king_names: Iterable[str], max_number: int = 20) -> str:
+  text = add_the_between_king_name_and_roman_numeral(text, king_names)
   for roman_numeral in KING_NUMBER_MAPPINGS_WITHOUT_DOT[::-1]:
     text = roman_numeral[0].sub(roman_numeral[1], text)
+  return text
+
+
+def add_the_between_king_name_and_roman_numeral(text: str, king_names: Iterable[str]) -> str:
+  king_names_conc_with_or = "|".join(king_names)
+  king_name_plus_roman_numeral = re.compile(rf"({king_names_conc_with_or}) ([XVI]{{2,5}})\.?")
+  text = king_name_plus_roman_numeral.sub(rf"\1 the \2", text)
   return text
 
 

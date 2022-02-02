@@ -1,6 +1,5 @@
 from text_pipeline.auxiliary_methods.detect_king_names import (
-    find_words_in_wordcorpus, get_singular_of_word, get_str_out_of_txt_file,
-    get_word_variants)
+    find_words_in_wordcorpus, get_singular_of_word, get_word_variants)
 
 
 def test_get_singular_of_word():
@@ -70,17 +69,3 @@ def test_find_words_in_wordcorpus__word_not_in_corpus():
 
   assert res_1 == []
   assert res_2 == ["Krtzkrz"]
-
-
-def test_get_str_out_of_txt_file():
-  filename = "data/test.txt"
-  res = get_str_out_of_txt_file(filename)
-
-  assert res == "abcd\ncdefg"
-
-
-def test_get_str_out_of_txt_file__sep_is_not_new_line():
-  filename = "data/test.txt"
-  res = get_str_out_of_txt_file(filename, sep="&")
-
-  assert res == "abcd&cdefg"
