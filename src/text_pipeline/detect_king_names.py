@@ -6,20 +6,6 @@ from nltk.corpus import names, words
 
 from text_pipeline.search_pattern_in_books import write_in_txt_file
 
-# def get_word_variants(names_or_words: List[str]) -> List[Tuple[str]]:
-#   all_word_variants = []
-#   for word in names_or_words:
-#     word_lower = word.lower()
-#     word_plural = get_plural_of_word(word_lower)
-#     word_variants = (word, word_lower, word_plural)
-#     all_word_variants.append(word_variants)
-#   return all_word_variants
-
-
-# def get_plural_of_word(word: str) -> str:
-#   word_plural = word + "s" if word[-1] != "y" else word[:-1] + "ies"
-#   return word_plural
-
 def get_word_variants(names_or_words: Iterable[str]) -> List[Tuple[str]]:
   all_word_variants = []
   for word in names_or_words:
