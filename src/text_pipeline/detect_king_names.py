@@ -1,6 +1,10 @@
-from typing import List, Optional, Tuple
+from pathlib import Path
+from typing import Iterable, List, Optional, Tuple
 
+import enchant
 from nltk.corpus import names, words
+
+from text_pipeline.search_pattern_in_books import write_in_txt_file
 
 # def get_word_variants(names_or_words: List[str]) -> List[Tuple[str]]:
 #   all_word_variants = []
@@ -16,7 +20,7 @@ from nltk.corpus import names, words
 #   word_plural = word + "s" if word[-1] != "y" else word[:-1] + "ies"
 #   return word_plural
 
-def get_word_variants(names_or_words: List[str]) -> List[Tuple[str]]:
+def get_word_variants(names_or_words: Iterable[str]) -> List[Tuple[str]]:
   all_word_variants = []
   for word in names_or_words:
     word_lower = word.lower()
@@ -37,7 +41,7 @@ def get_singular_of_word(word: str) -> Optional[str]:
   return word[:-1]
 
 
-def find_words_in_wordcorpus(names_or_words: List[Tuple[str]]) -> Tuple[List[str], List[str]]:
+def find_words_in_wordcorpus(names_or_words: Iterable[Tuple[str]]) -> Tuple[List[str], List[str]]:
   words_in_corpus = []
   words_not_in_corpus = []
   for variants_of_a_name in names_or_words:
@@ -52,7 +56,7 @@ def find_words_in_wordcorpus(names_or_words: List[Tuple[str]]) -> Tuple[List[str
   return words_in_corpus, words_not_in_corpus
 
 
-def find_names_in_namecorpus(names_or_words: List[str]) -> Tuple[List[str], List[str]]:
+def find_names_in_namecorpus(names_or_words: Iterable[str]) -> Tuple[List[str], List[str]]:
   words_in_corpus = []
   words_not_in_corpus = []
   for name in names_or_words:
@@ -61,3 +65,55 @@ def find_names_in_namecorpus(names_or_words: List[str]) -> Tuple[List[str], List
     else:
       words_not_in_corpus.append(name)
   return words_in_corpus, words_not_in_corpus
+
+
+def build_name_corpus(names_and_words: Iterable[str], exceptions: Iterable[str]) -> Tuple[List[str], List[str]]:
+  variants = get_word_variants(names_and_words)
+  words, not_words = find_words_in_wordcorpus(variants)
+  names, not_names = find_names_in_namecorpus(names_and_words)
+  words = set(words).difference(set(names))
+  words = list(words)
+  neither_words_nor_names = set(not_words).intersection(set(not_names))
+  in_british_enchant, not_in_british_enchant = check_with_enchant(neither_words_nor_names, "en_GB")
+  in_american_enchant, not_in_american_enchant = check_with_enchant(
+    neither_words_nor_names, "en_US")
+  not_in_enchant = set(not_in_british_enchant).intersection(set(not_in_american_enchant))
+  not_in_enchant = list(not_in_enchant)
+  names.extend(not_in_enchant)
+  in_enchant = set(in_british_enchant).union(set(in_american_enchant))
+  in_enchant -= set(exceptions)
+  words.extend(in_enchant)
+  names.extend(exceptions)
+  return names, words
+
+
+def our_name_corpus():
+  names_or_words = get_list_out_of_txt_file("data/only_names.txt")
+  exceptions = get_list_out_of_txt_file("data/exceptions.txt")
+  names, words = build_name_corpus(names_or_words, exceptions)
+  dump_iterable_in_txt_file(names, Path("data/name_corpus.txt"))
+  dump_iterable_in_txt_file(words, Path("data/not_name_corpus.txt"))
+
+
+def get_list_out_of_txt_file(filename: str) -> List[str]:
+  with open(filename) as f:
+    lines = f.readlines()
+  lines = [line[:-1] for line in lines]
+  return lines
+
+
+def dump_iterable_in_txt_file(text_as_iterable: Iterable[str], path: Path):
+  text_as_str = "\n".join(text_as_iterable)
+  write_in_txt_file(text_as_str, path)
+
+
+def check_with_enchant(words: Iterable[str], dict_tag: str) -> Tuple[List[str], List[str]]:
+  d = enchant.Dict(dict_tag)
+  in_dict = []
+  not_in_dict = []
+  for word in words:
+    if d.check(word):
+      in_dict.append(word)
+    else:
+      not_in_dict.append(word)
+  return in_dict, not_in_dict

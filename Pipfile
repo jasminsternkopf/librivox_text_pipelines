@@ -8,6 +8,7 @@ inflect = "*"
 unidecode = "*"
 nltk = "*"
 spacy = "*"
+pyenchant = "*"
 
 [dev-packages]
 text-pipeline = {editable = true, path = "."}

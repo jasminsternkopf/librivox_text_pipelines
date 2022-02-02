@@ -69,3 +69,30 @@ def test_get_name_variants__2():
   res = get_word_variants(names)
 
   assert res == [("Chapters", "chapters", "chapter"), ("Discoveries", "discoveries", "discovery")]
+
+
+def test_find_words_in_wordcorpus():
+  names = ["Chapters", "Discoveries"]
+  variants = get_word_variants(names)
+  res_1, res_2 = find_words_in_wordcorpus(variants)
+
+  assert res_1 == ["chapter", "discovery"]
+  assert res_2 == []
+
+
+def test_find_words_in_wordcorpus__2():
+  names = ["Chapter", "Aaron"]
+  variants = get_word_variants(names)
+  res_1, res_2 = find_words_in_wordcorpus(variants)
+
+  assert res_1 == ["chapter", "Aaron"]
+  assert res_2 == []
+
+
+def test_find_words_in_wordcorpus__word_not_in_corpus():
+  names = ["Krtzkrz"]
+  variants = get_word_variants(names)
+  res_1, res_2 = find_words_in_wordcorpus(variants)
+
+  assert res_1 == []
+  assert res_2 == ["Krtzkrz"]
