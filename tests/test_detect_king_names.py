@@ -1,4 +1,4 @@
-from text_pipeline.detect_king_names import (find_words_in_wordcorpus,
+from text_pipeline.auxiliary_methods.detect_king_names import (find_words_in_wordcorpus,
                                              get_singular_of_word,
                                              get_word_variants)
 
@@ -50,7 +50,7 @@ def test_find_words_in_wordcorpus():
   variants = get_word_variants(names)
   res_1, res_2 = find_words_in_wordcorpus(variants)
 
-  assert res_1 == ["chapter", "discovery"]
+  assert res_1 == ["Chapters", "Discoveries"]
   assert res_2 == []
 
 
@@ -59,7 +59,7 @@ def test_find_words_in_wordcorpus__2():
   variants = get_word_variants(names)
   res_1, res_2 = find_words_in_wordcorpus(variants)
 
-  assert res_1 == ["chapter", "Aaron"]
+  assert res_1 == ["Chapter", "Aaron"]
   assert res_2 == []
 
 

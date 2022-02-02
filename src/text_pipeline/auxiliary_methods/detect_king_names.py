@@ -4,7 +4,8 @@ from typing import Iterable, List, Optional, Tuple
 import enchant
 from nltk.corpus import names, words
 
-from text_pipeline.search_pattern_in_books import write_in_txt_file
+from text_pipeline.auxiliary_methods.search_pattern_in_books import write_in_txt_file
+
 
 def get_word_variants(names_or_words: Iterable[str]) -> List[Tuple[str]]:
   all_word_variants = []
@@ -34,7 +35,8 @@ def find_words_in_wordcorpus(names_or_words: Iterable[Tuple[str]]) -> Tuple[List
     name_appended = False
     for name_variante in variants_of_a_name:
       if name_variante in words.words():
-        words_in_corpus.append(name_variante)
+        # words_in_corpus.append(name_variante)
+        words_in_corpus.append(variants_of_a_name[0])
         name_appended = True
         break
     if not name_appended:
@@ -84,7 +86,7 @@ def our_name_corpus():
 def get_list_out_of_txt_file(filename: str) -> List[str]:
   with open(filename) as f:
     lines = f.readlines()
-  lines = [line[:-1] for line in lines]
+  lines = [line[:-1] if line[-1] == "\n" else line for line in lines]
   return lines
 
 

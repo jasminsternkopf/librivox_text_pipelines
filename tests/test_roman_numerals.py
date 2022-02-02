@@ -1,4 +1,4 @@
-from text_pipeline.roman_numerals import (get_all_roman_numerals_up_to_N,
+from text_pipeline.auxiliary_methods.roman_numerals import (get_all_roman_numerals_up_to_N,
                                           roman_units)
 
 

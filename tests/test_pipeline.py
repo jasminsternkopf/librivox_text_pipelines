@@ -1,5 +1,5 @@
 from text_pipeline.pipeline import normalize_chronicles_of_newgate
-from text_pipeline.txt_files_reading import get_text_files
+from text_pipeline.auxiliary_methods.txt_files_reading import get_text_files
 
 # region normalize_chronicles_of_newgate
 

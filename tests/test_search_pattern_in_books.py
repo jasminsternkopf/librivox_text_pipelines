@@ -1,7 +1,7 @@
 import re
 from pathlib import Path
 
-from text_pipeline.search_pattern_in_books import (
+from text_pipeline.auxiliary_methods.search_pattern_in_books import (
     process_matches, search_pattern_in_all_books,
     search_pattern_in_all_books_and_name_with_first_letter_capital_rest_small_before,
     search_pattern_in_all_books_and_word_after,
