@@ -3,8 +3,8 @@ from typing import Iterable, List, Optional, Tuple
 
 import enchant
 from nltk.corpus import names, words
-
-from text_pipeline.auxiliary_methods.search_pattern_in_books import write_in_txt_file
+from text_pipeline.auxiliary_methods.txt_files_reading import (
+    dump_iterable_in_txt_file, get_list_out_of_txt_file)
 
 
 def get_word_variants(names_or_words: Iterable[str]) -> List[Tuple[str]]:
@@ -81,18 +81,6 @@ def our_name_corpus():
   names, words = build_name_corpus(names_or_words, exceptions)
   dump_iterable_in_txt_file(names, Path("data/name_corpus.txt"))
   dump_iterable_in_txt_file(words, Path("data/not_name_corpus.txt"))
-
-
-def get_list_out_of_txt_file(filename: str) -> List[str]:
-  with open(filename) as f:
-    lines = f.readlines()
-  lines = [line[:-1] if line[-1] == "\n" else line for line in lines]
-  return lines
-
-
-def dump_iterable_in_txt_file(text_as_iterable: Iterable[str], path: Path):
-  text_as_str = "\n".join(text_as_iterable)
-  write_in_txt_file(text_as_str, path)
 
 
 def check_with_enchant(words: Iterable[str], dict_tag: str) -> Tuple[List[str], List[str]]:

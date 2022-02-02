@@ -41,7 +41,12 @@ KING_NUMBER_MAPPINGS_WITHOUT_DOT = [
   (r" XII", " the twelfth"),
   (r" XIII", " the thirteenth"),
   (r" XIV", " the fourteenth"),
-  (r" XV", " the fifteenth")
+  (r" XV", " the fifteenth"),
+  (r" XVI", " the sixteenth"),
+  (r" XVII", " the seventeenth"),
+  (r" XVIII", " the eighteenth"),
+  (r" XIX", " the nineteenth"),
+  (r" XX", " the twentieth")
 ]  # Achtung, muss andersrum durchgegangen werden!
 
 
