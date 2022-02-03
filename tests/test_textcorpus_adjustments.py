@@ -164,7 +164,14 @@ def test_normalize_shillings__dot_and_space_after_s():
   assert res == " 2 shillings 3d."
 
 
-def test_normalize_shillings__only_space_after_s():
+def test_normalize_shillings__dot_and_space_after_number():
+  text = " 2 s. 3 d."
+  res = normalize_shillings(text)
+
+  assert res == " 2 shillings 3 d."
+
+
+def test_normalize_shillings__space_after_s():
   text = " 2s 3d."
   res = normalize_shillings(text)
 
@@ -260,32 +267,74 @@ def test_normalize_pence__one_penny__no_dot_after_d():
   assert res == " one penny "
 
 
-def test_normalize_pence__one_penny__word_after_one_do_not_normalize():
+def test_normalize_pence__word_after_one_do_not_normalize():
   text = " 1 dozen"
   res = normalize_pence(text)
 
   assert res == text
 
 
-def test_normalize_pence__no_dot_after_d__do_not_normalize():
-  text = " 3d "
+def test_normalize_pence__word_after_four_do_not_normalize():
+  text = " 4 dozen"
   res = normalize_pence(text)
 
   assert res == text
 
 
-def test_normalize_pence__only_dot_after_s():
-  text = " 3d."
+def test_normalize_pence__and_a_half_pence():
+  text = " 11-1/2d "
   res = normalize_pence(text)
 
-  assert res == " 2 shillings 3d."
+  assert res == " 11 and a half pence "
 
 
-def test_normalize_pence__number_of_shillings_consists_of_two_digits():
-  text = " 12s. 3d."
+def test_normalize_pence__and_a_half_pence__dot_after_d():
+  text = " 11-1/2d. "
   res = normalize_pence(text)
 
-  assert res == " 12 shillings 3d."
+  assert res == " 11 and a half pence "
+
+
+def test_normalize_pence__and_a_half_pence__no_hyphen_before_half():
+  text = " 11/2d "
+  res = normalize_pence(text)
+
+  assert res == " 1 and a half pence "
+
+
+def test_normalize_pence__and_a_half_pence__space_after_half():
+  text = " 11-1/2 d "
+  res = normalize_pence(text)
+
+  assert res == " 11 and a half pence "
+
+
+def test_normalize_pence__10_pence():
+  text = " 10d. "
+  res = normalize_pence(text)
+
+  assert res == " 10 pence "
+
+
+def test_normalize_pence__4_pence__space_after_number():
+  text = " 4 d. "
+  res = normalize_pence(text)
+
+  assert res == " 4 pence "
+
+
+def test_normalize_pence__4_pence__no_dot_after_d():
+  text = " 4d "
+  res = normalize_pence(text)
+
+  assert res == " 4 pence "
+
+
+def test_normalize_pence__number_of_pence_consists_of_more_than_one_char():
+  text = " 11-1/4d. "
+  res = normalize_pence(text)
+
+  assert res == " 11-1/4 pence "
 
 # endregion
 

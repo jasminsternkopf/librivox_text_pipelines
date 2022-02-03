@@ -31,14 +31,12 @@ POUNDS = re.compile(r" L\.? ?(\d+[\d\.,]*)(\W)")
 SHILLINGS_AND_PENCE_WITHOUT_DOT = re.compile(r" (\d{1,2}) ?s,? ([\d\-/]{1,6}) ?d(\W)")
 SHILLINGS_AND_PENCE_WITH_DOT = re.compile(r" (\d{1,2}) ?s\.,? ?([\d\-/]{1,6}) ?d\.(\W)")
 
-ONE_SHILLING = re.compile(r" 1s[\. ]{1,2}")
-SHILLINGS = re.compile(r" (\d{1,2})s[\. ]{1,2}")
+ONE_SHILLING = re.compile(r" 1 ?s[\. ]{1,2}")
+SHILLINGS = re.compile(r" (\d{1,2}) ?s[\. ]{1,2}")
 
-ONE_SHILLING = re.compile(r" 1s[\. ]{1,2}")
-SHILLINGS = re.compile(r" (\d{1,2})s[\. ]{1,2}")
 
 ONE_PENNY = re.compile(r" 1 ?d\.?(\W)")
-AND_A_HALF_PENCE = re.compile(r"1/2 ?d\.?(\W)")
+AND_A_HALF_PENCE = re.compile(r"\-?1/2 ?d\.?(\W)")
 MORE_THAN_FOUR_PENCE = re.compile(r"([04-9]) ?d\.?(\W)")
 #PENCE = re.compile(r" ([\d\-/]{1,6})d\.")
 
