@@ -28,17 +28,19 @@ POUNDS_WITH_DOT_AFTER_NUMBER = re.compile(r" L\.? ?(\d+[\d\.,]*)\.(\W)")
 POUNDS_WITH_COMMA_AFTER_NUMBER = re.compile(r" L\.? ?(\d+[\d\.,]*)\,(\W)")
 POUNDS = re.compile(r" L\.? ?(\d+[\d\.,]*)(\W)")
 
-SHILLINGS_AND_PENCE_WITHOUT_DOT = re.compile(r" (\d{1,2}) ?s,? ([\d\-/]{1,6}) ?d(\W)")
-SHILLINGS_AND_PENCE_WITH_DOT = re.compile(r" (\d{1,2}) ?s\.,? ?([\d\-/]{1,6}) ?d\.(\W)")
+SHILLINGS_AND_PENCE_WITHOUT_DOT = re.compile(r" (\d{1,2}) ?s,? (\d{1,6}) ?d(\W)")
+#SHILLINGS_AND_PENCE_WITHOUT_DOT = re.compile(r" (\d{1,2}) ?s,? ([\d\-/]{1,6}) ?d(\W)")
+#SHILLINGS_AND_PENCE_WITH_DOT = re.compile(r" (\d{1,2}) ?s\.,? ?([\d\-/]{1,6}) ?d\.(\W)")
+SHILLINGS_AND_PENCE_WITH_DOT = re.compile(r" (\d{1,2}) ?s\.,? ?(\d{1,6}) ?d\.(\W)")
 
-ONE_SHILLING = re.compile(r" 1 ?s[\. ]{1,2}")
-SHILLINGS = re.compile(r" (\d{1,2}) ?s[\. ]{1,2}")
+ONE_SHILLING = re.compile(r" 1 ?s[\., ]{1,3}")
+SHILLINGS = re.compile(r" (\d{1,2}) ?s[\., ]{1,3}")
 
 
 ONE_PENNY = re.compile(r" 1 ?d\.?(\W)")
 AND_A_HALF_PENCE = re.compile(r"\-?1/2 ?d\.?(\W)")
 MORE_THAN_FOUR_PENCE = re.compile(r"([04-9]) ?d\.?(\W)")
-#PENCE = re.compile(r" ([\d\-/]{1,6})d\.")
+# 2d and 3d often stand for second and third, with dot after them when at the end of a sentence.
 
 
 def normalize_pounds(text: str) -> str:

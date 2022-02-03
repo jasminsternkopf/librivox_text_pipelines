@@ -1,7 +1,8 @@
 from text_pipeline.adjustments.textcorpus_adjustments import (
     add_the_between_king_name_and_roman_numeral, normalize_king_names_general,
     normalize_our_king_names, normalize_pence, normalize_pounds,
-    normalize_shillings, normalize_shillings_and_pounds_with_dots,
+    normalize_pounds_shillings_and_pence, normalize_shillings,
+    normalize_shillings_and_pounds_with_dots,
     normalize_shillings_and_pounds_without_dots)
 
 # region king names
@@ -338,46 +339,69 @@ def test_normalize_pence__number_of_pence_consists_of_more_than_one_char():
 
 # endregion
 
-  # def test_normalize_pounds_shillings_and_pence__number_of_pounds_contains_comma():
-  #   text = "L12,345 2s. 3d."
-  #   res = normalize_pounds_shillings_and_pence(text)
+# region normalize_pounds_shillings_and_pence
 
-  #   assert res == "12,345 pounds 2 shillings 3 pence"
 
-  # def test_normalize_pounds_shillings_and_pence__dot_after_number_of_pounds():
-  #   text = "L12. 2s. 3d."
-  #   res = normalize_pounds_shillings_and_pence(text)
+def test_normalize_pounds_shillings_and_pence__all_three():
+  text = " L12 2s. 3d. "
+  res = normalize_pounds_shillings_and_pence(text)
 
-  #   assert res == "12 pounds 2 shillings 3 pence"
+  assert res == " 12 pounds 2 shillings and 3 pence "
 
-  # def test_normalize_pounds_shillings_and_pence__only_numbers_directly_after_L():
-  #   text = "L12 2s. 3d."
-  #   res = normalize_pounds_shillings_and_pence(text)
 
-  #   assert res == "12 pounds 2 shillings 3 pence"
+def test_normalize_pounds_shillings_and_pence__all_three__with_commata():
+  text = " L12, 2s., 3d. "
+  res = normalize_pounds_shillings_and_pence(text)
 
-  # def test_normalize_pounds_shillings_and_pence__dot_after_L__no_shillings_or_pence():
-  #   text = "L.10,875,870"
-  #   res = normalize_pounds_shillings_and_pence(text)
+  assert res == " 12 pounds 2 shillings and 3 pence "
 
-  #   assert res == "10,875,870 pounds"
 
-  # def test_normalize_pounds_shillings_and_pence__dot_after_L():
-  #   text = "L.499,833, 11s. 6d."
-  #   res = normalize_pounds_shillings_and_pence(text)
+def test_normalize_pounds_shillings_and_pence__only_pounds():
+  text = " L12. "
+  res = normalize_pounds_shillings_and_pence(text)
 
-  #   assert res == "499,833 pounds 11s. 6d."
+  assert res == " 12 pounds "
 
-  # def test_normalize_pounds_shillings_and_pence():
-  #   text = "L12,345 2s. 3d."
-  #   res = normalize_pounds_shillings_and_pence(text)
 
-  #   assert res == "12,345 pounds 2 shillings 3 pence"
+def test_normalize_pounds_shillings_and_pence__only_shillings_and_pence_without_dots():
+  text = " 2s 3d "
+  res = normalize_pounds_shillings_and_pence(text)
 
-  # def test_normalize_pounds_shillings_and_pence():
-  #   text = "L12,345 2s. 3d."
-  #   res = normalize_pounds_shillings_and_pence(text)
+  assert res == " 2 shillings and 3 pence "
 
-  #   assert res == "12,345 pounds 2 shillings 3 pence"
 
-  #   # endregion
+def test_normalize_pounds_shillings_and_pence__only_shillings_and_pence_without_spaces_but_with_dots():
+  text = " 2s.3d. "
+  res = normalize_pounds_shillings_and_pence(text)
+
+  assert res == " 2 shillings and 3 pence "
+
+
+def test_normalize_pounds_shillings_and_pence__only_shillings():
+  text = " 3s. "
+  res = normalize_pounds_shillings_and_pence(text)
+
+  assert res == " 3 shillings "
+
+
+def test_normalize_pounds_shillings_and_pence__only_pence():
+  text = " 6d. "
+  res = normalize_pounds_shillings_and_pence(text)
+
+  assert res == " 6 pence "
+
+
+def test_normalize_pounds_shillings_and_pence__pence_number_contains_a_half():
+  text = " L1, 1s., 11/2d. "
+  res = normalize_pounds_shillings_and_pence(text)
+
+  assert res == " one pound one shilling 1 and a half pence "
+
+
+def test_normalize_pounds_shillings_and_pence__all_three_but_only_pence_non_zero():
+  text = " L0. 0s. 3d. "
+  res = normalize_pounds_shillings_and_pence(text)
+
+  assert res == " 0 pounds 0 shillings and 3 pence "
+
+# endregion
