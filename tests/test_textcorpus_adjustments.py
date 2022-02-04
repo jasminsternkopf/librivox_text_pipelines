@@ -1,8 +1,8 @@
 from text_pipeline.adjustments.textcorpus_adjustments import (
-    add_the_between_king_name_and_roman_numeral, normalize_king_names_general,
-    normalize_our_king_names, normalize_pence, normalize_pounds,
-    normalize_pounds_shillings_and_pence, normalize_shillings,
-    normalize_shillings_and_pounds_with_dots,
+    add_the_between_king_name_and_roman_numeral, normalize_fractions,
+    normalize_king_names_general, normalize_our_king_names, normalize_pence,
+    normalize_pounds, normalize_pounds_shillings_and_pence,
+    normalize_shillings, normalize_shillings_and_pounds_with_dots,
     normalize_shillings_and_pounds_without_dots)
 
 # region king names
@@ -404,4 +404,14 @@ def test_normalize_pounds_shillings_and_pence__all_three_but_only_pence_non_zero
 
   assert res == " 0 pounds 0 shillings and 3 pence "
 
+# endregion
+
+# region normalize_fractions
+
+
+def test_normalize_fractions__one_half():
+  text = "1/2, "
+  res = normalize_fractions(text)
+
+  assert res == "one half, "
 # endregion

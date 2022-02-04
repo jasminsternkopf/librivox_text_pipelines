@@ -6,10 +6,11 @@ from text_pipeline.adjustments.abbreviations import expand_abbreviations
 from text_pipeline.adjustments.LJ_and_DW_adjustments import *
 from text_pipeline.adjustments.numbers import normalize_numbers
 from text_pipeline.adjustments.textcorpus_adjustments import (
-    geo_to_george_general, replace_eg_with_for_example,
-    replace_ie_with_that_is)
-from text_pipeline.sentence_extraction import extract_sentences_of_all_books
+    geo_to_george_general, normalize_king_names_general,
+    normalize_our_king_names, normalize_pounds_shillings_and_pence,
+    replace_eg_with_for_example, replace_ie_with_that_is)
 from text_pipeline.auxiliary_methods.txt_files_reading import get_text_files
+from text_pipeline.sentence_extraction import extract_sentences_of_all_books
 
 
 def create_pickle_containing_all_books(folder: Path):
@@ -28,14 +29,17 @@ def general_pipeline(text: str) -> str:
   text = remove_numbers_in_square_brackets(text)
   text = remove_illustrations(text)
   text = remove_underscore_characters(text)
+  text = insert_space_before_and_after_double_hyphen(text)
   text = replace_ie_with_that_is(text)
   text = replace_eg_with_for_example(text)
   text = replace_nos_with_numbers(text)
   text = replace_no_with_number(text)
   text = geo_to_george_general(text)
-  text = normalize_king_names(text)
-  # text = remove_dot_after_single_capital_letters(text)
-  # text = normalize_am_and_pm(text)
+  text = normalize_our_king_names(text)
+  text = remove_dot_after_single_capital_letters(text)
+  text = normalize_am_and_pm(text)
+  text = normalize_pounds_shillings_and_pence(text)
+  # 1/2
   text = replace_hyphen_between_numbers_with_to(text)
   text = normalize_numbers(text)
   text = expand_abbreviations(text)
