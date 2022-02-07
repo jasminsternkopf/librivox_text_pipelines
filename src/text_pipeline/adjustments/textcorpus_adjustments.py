@@ -1,5 +1,8 @@
 
 
+import re
+
+
 def replace_ie_with_that_is(text: str) -> str:
   text = text.replace("i.e.", "that is")
   text = text.replace("I.e.", "That is")
@@ -20,3 +23,10 @@ def geo_to_george_general(text: str) -> str:
 # def remove_commas_in_numbers(text: str) -> str:
 #   NUMBERS_WITH_COMMAS = re.compile(r"\d+(,\d{3})+")
 # \d/\d+[^ ,\.\-\d/dt)_;'":lis%]
+
+PERCENT = re.compile(r"(\d) ?%")
+
+
+def normalize_percent(text: str) -> str:
+  text = PERCENT.sub(r"\1 percent", text)
+  return text

@@ -6,7 +6,7 @@ from text_pipeline.adjustments.unit_abbreviations_normalization import (
     UNIT_MAPPINGS_WEIGHT_SINGULAR, UNIT_MAPPINGS_WEIGHT_SINGULAR_AMERICAN,
     get_plural_abbreviations, get_unit_abbreviations_as_regex,
     normalize_all_units, normalize_given_units, normalize_length_units,
-    normalize_weight_units)
+    normalize_time_units, normalize_weight_units)
 
 # region get_plural_abbreviations
 
@@ -26,17 +26,17 @@ def test_get_unit_abbreviations_as_regex():
   abbr_from_to = [("min", "minute")]
   res_1, res_2 = get_unit_abbreviations_as_regex(abbr_from_to)
 
-  assert res_1 == [(re.compile(" 1 ?min\\.?([ ,:;)\'\\\"\\.])"), " 1 minute\\1")]
+  assert res_1 == [(re.compile(" 1 ?min\\.?([ ,:;)\'\\\"\\.!\\?])"), " 1 minute\\1")]
   #assert res_1 == [(re.compile(' 1 ?min\\.?([ ,:;)\'\\"])'), " one minute\\1")]
-  assert res_2 == [(re.compile("(\\d) ?mins?\\.?([ ,:;)\'\\\"\\.])"), "\\1 minutes\\2")]
+  assert res_2 == [(re.compile("(\\d) ?mins?\\.?([ ,:;)\'\\\"\\.!\\?])"), "\\1 minutes\\2")]
 
 
 def test_get_unit_abbreviations_as_regex__no_dot_after_abbr():
   abbr_from_to = [("min", "minute")]
   res_1, res_2 = get_unit_abbreviations_as_regex(abbr_from_to, dot="never")
 
-  assert res_1 == [(re.compile(" 1 ?min([ ,:;)\'\\\"\\.])"), " 1 minute\\1")]
-  assert res_2 == [(re.compile("(\\d) ?mins?([ ,:;)\'\\\"\\.])"), "\\1 minutes\\2")]
+  assert res_1 == [(re.compile(" 1 ?min([ ,:;)\'\\\"\\.!\\?])"), " 1 minute\\1")]
+  assert res_2 == [(re.compile("(\\d) ?mins?([ ,:;)\'\\\"\\.!\\?])"), "\\1 minutes\\2")]
 
 # endregion
 
@@ -55,6 +55,18 @@ def test_normalize_abbreviated_units__only_normalizes_when_dot_after_abbreviatio
   res = normalize_given_units(text, UNIT_MAPPINGS_TIME_SINGULAR, dot="always")
 
   assert res == text
+
+# endregion
+
+# region normalize_time_units
+
+
+def test_normalize_time_units():
+  text = "He ran the marathon in 1h. 3m 2sec, while she needed 6h 12 m. 1s!"
+  res = normalize_time_units(text)
+
+  assert res == "He ran the marathon in 1 hour 3 minutes 2 seconds, while she needed 6 hours 12 minutes 1 second!"
+
 
 # endregion
 
