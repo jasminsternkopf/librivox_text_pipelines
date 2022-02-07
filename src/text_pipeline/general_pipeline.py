@@ -3,12 +3,15 @@ from pathlib import Path
 from typing import Callable, List
 
 from text_pipeline.adjustments.abbreviations import expand_abbreviations
+from text_pipeline.adjustments.king_names_normalization import \
+    normalize_our_king_names
 from text_pipeline.adjustments.LJ_and_DW_adjustments import *
+from text_pipeline.adjustments.money_normalization import \
+    normalize_pounds_shillings_and_pence
 from text_pipeline.adjustments.numbers import normalize_numbers
 from text_pipeline.adjustments.textcorpus_adjustments import (
-    geo_to_george_general, normalize_king_names_general,
-    normalize_our_king_names, normalize_pounds_shillings_and_pence,
-    replace_eg_with_for_example, replace_ie_with_that_is)
+    geo_to_george_general, replace_eg_with_for_example,
+    replace_ie_with_that_is)
 from text_pipeline.auxiliary_methods.txt_files_reading import get_text_files
 from text_pipeline.sentence_extraction import extract_sentences_of_all_books
 
