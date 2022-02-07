@@ -39,7 +39,7 @@ def general_pipeline(text: str) -> str:
   text = remove_dot_after_single_capital_letters(text)
   text = normalize_am_and_pm(text)
   text = normalize_pounds_shillings_and_pence(text)
-  # 1/2
+  # text = normalize_fractions(text)
   text = replace_hyphen_between_numbers_with_to(text)
   text = normalize_numbers(text)
   text = expand_abbreviations(text)

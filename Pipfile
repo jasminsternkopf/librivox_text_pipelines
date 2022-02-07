@@ -9,6 +9,7 @@ unidecode = "*"
 nltk = "*"
 spacy = "*"
 pyenchant = "*"
+num2words = "*"
 
 [dev-packages]
 text-pipeline = {editable = true, path = "."}

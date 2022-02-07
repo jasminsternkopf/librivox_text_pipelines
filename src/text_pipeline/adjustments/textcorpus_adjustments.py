@@ -1,6 +1,7 @@
 import re
-from typing import Iterable
+from typing import Iterable, Literate
 
+from text_pipeline.adjustments.abbreviations import _unit_mappings
 from text_pipeline.auxiliary_methods.txt_files_reading import \
     get_list_out_of_txt_file
 
@@ -160,3 +161,91 @@ def normalize_our_king_names(text: str) -> str:
   king_names = get_list_out_of_txt_file("data/name_corpus.txt")
   text = normalize_king_names_general(text, king_names)
   return text
+
+
+#\d[^ \w):;\.,\-/\d\?\]}!#%"'\[\+@=~\|]
+
+UNIT_MAPPINGS_TIME_SINGULAR = [
+  ('sec', 'second'),
+  ('s', 'second'),
+  ('min', 'minute'),
+]
+
+UNIT_MAPPINGS_TIME = [
+  ('sec', 'seconds'),
+  ('s', 'seconds'),
+  ('min', 'minutes'),
+]
+
+UNIT_MAPPINGS_LENGTH_SINGULAR = [
+  ('mm', 'millimeter'),
+  ('cm', 'centimeter'),
+  ('m', 'meter')
+  ('km', 'kilometer')
+]
+
+UNIT_MAPPINGS_LENGTH = [
+  ('mm', 'millimeters'),
+  ('cm', 'centimeters'),
+  ('m', 'meters'),
+  ('km', 'kilometers')
+]
+
+UNIT_MAPPINGS_LENGTH_SINGULAR_AMERICAN = [
+  #("″", "inch")
+  #("′", "foot")
+  ("in", "inch"),
+  ("ft", "foot"),
+  ("yd", "yard"),
+  ("mi", "mile")
+
+]
+
+UNIT_MAPPINGS_LENGTH_AMERICAN = [
+  ("in", "inches"),
+  ("ins", "inches"),
+  ("ft", "feet"),
+  ("fts", "feet"),
+  ("yd", "yards"),
+  ("yds", "yards"),
+  ("mi", "miles")
+
+]
+
+UNIT_MAPPINGS_WEIGHT_SINGULAR = [
+  ('mg', 'milligram'),
+  ('g', 'gram'),
+  ('kg', 'kilogram'),
+]
+
+UNIT_MAPPINGS_WEIGHT = [
+  ('g', 'grams'),
+  ('kg', 'kilograms'),
+]
+
+UNIT_MAPPINGS_WEIGHT_SINGULAR_AMERICAN = [
+  ("gr", "grain"),
+  ("dr", "dram"),
+  ("oz", "ounce")
+  ("lb", "pound"),
+]
+
+_unit_abbreviations_singular = [
+  (re.compile(rf" 1 ?{abbr}\b"), f" {long_form}") for abbr, long_form in UNIT_MAPPINGS_TIME]
+
+_unit_abbreviations = [(re.compile(rf"(\d) ?{abbr}\b"), f" {long_form}")
+                       for abbr, long_form in _unit_mappings]
+
+
+def get_unit_abbrevaitions_as_regex(abbr_from_to: Iterable[Tuple[str, str]], dot: Literal[Literal["always"], Literal["never"], Literal["optional"]] = "optional"):
+  dot_regex = get_dot_regex(dot)
+
+def get_dot_regex(dot: str):
+  if dot == "always":
+    return "\."
+  if dot == "never":
+    return ""
+  return "\.?"
+
+def unit_mappings(text: str) -> str:
+  pass

@@ -61,6 +61,7 @@ _unit_mappings = [
   ('mm', 'millimeters'),
   ('cm', 'centimeters'),
   ('m', 'meters'),
+  ('sec', 'seconds'),
   ('s', 'seconds'),
   ('min', 'minutes'),
 ]
