@@ -83,6 +83,13 @@ def test_normalize_degrees_minutes_and_seconds__degrees_minutes_and_sconds():
   assert res == "My house is at longitude 12 degrees 4 minutes 3 seconds."
 
 
+def test_normalize_degrees_minutes_and_seconds__with_commata():
+  text = "My house is at longitude 12 deg., 4', 3\"."
+  res = normalize_degrees_minutes_and_seconds(text)
+
+  assert res == "My house is at longitude 12 degrees, 4 minutes 3 seconds."
+
+
 def test_normalize_degrees_minutes_and_seconds__only_degrees_and_sconds():
   text = "My house is at longitude 12 deg. 3\"."
   res = normalize_degrees_minutes_and_seconds(text)

@@ -50,11 +50,11 @@ NUMBER_AND_MAYBE_A_HALF = r"\d+(?:-?1/2)?"
 # ONLY_DEGREES = (re.compile(rf"({NUMBER_AND_MAYBE_A_HALF}) ?deg\."), r"\1 degrees")
 
 MINUTES_AND_SECONDS = (
-  rf"({NUMBER_AND_MAYBE_A_HALF})' ?({NUMBER_AND_MAYBE_A_HALF})\"", r"\1 minutes \2 seconds")
+  rf"({NUMBER_AND_MAYBE_A_HALF})',? ?({NUMBER_AND_MAYBE_A_HALF})\"", r"\1 minutes \2 seconds")
 DEGREES_AND_MINUTES = (
-  rf"({NUMBER_AND_MAYBE_A_HALF}) ?deg\.? ?({NUMBER_AND_MAYBE_A_HALF})'", r"\1 degrees \2 minutes")
+  rf"({NUMBER_AND_MAYBE_A_HALF}) ?deg\.?,? ?({NUMBER_AND_MAYBE_A_HALF})'", r"\1 degrees \2 minutes")
 DEGREES_AND_SECONDS = (
-  rf"({NUMBER_AND_MAYBE_A_HALF}) ?deg\.? ?({NUMBER_AND_MAYBE_A_HALF})\"", r"\1 degrees \2 seconds")
+  rf"({NUMBER_AND_MAYBE_A_HALF}) ?deg\.?,? ?({NUMBER_AND_MAYBE_A_HALF})\"", r"\1 degrees \2 seconds")
 ONLY_DEGREES = (rf"({NUMBER_AND_MAYBE_A_HALF}) ?deg\.", r"\1 degrees")
 
 DMS = [MINUTES_AND_SECONDS, DEGREES_AND_SECONDS, DEGREES_AND_MINUTES, ONLY_DEGREES]
