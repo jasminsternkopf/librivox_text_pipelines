@@ -49,4 +49,13 @@ def test_normalize_temperatures_fahrenheit__fahr_not_f__2():
 
   assert res == "Today it was 30 degrees Fahrenheit!"
 
+
+def test_normalize_temperatures_fahrenheit__fah_not_f_or_fahr():
+  text = "It was 30 deg.Fah. outside today."
+  res = normalize_temperatures_fahrenheit(text)
+
+  assert res == "It was 30 degrees Fahrenheit outside today."
+
 # endregion
+
+# region
