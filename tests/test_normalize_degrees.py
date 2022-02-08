@@ -1,5 +1,6 @@
 from text_pipeline.adjustments.normalize_degrees import (
-    normalize_temperatures_celsius, normalize_temperatures_fahrenheit)
+    normalize_degrees_minutes_and_seconds, normalize_temperatures_celsius,
+    normalize_temperatures_fahrenheit)
 
 # region normalize_temperatures_celsius
 
@@ -58,4 +59,48 @@ def test_normalize_temperatures_fahrenheit__fah_not_f_or_fahr():
 
 # endregion
 
-# region
+# region normalize_degrees_minutes_and_seconds
+
+
+def test_normalize_degrees_minutes_and_seconds__only_minutes_and_sconds():
+  text = "My house is at longitude 12 degrees 4' 3\"."
+  res = normalize_degrees_minutes_and_seconds(text)
+
+  assert res == "My house is at longitude 12 degrees 4 minutes 3 seconds."
+
+
+def test_normalize_degrees_minutes_and_seconds__with_one_half():
+  text = "My house is at longitude 12 degrees 4' 3-1/2\"."
+  res = normalize_degrees_minutes_and_seconds(text)
+
+  assert res == "My house is at longitude 12 degrees 4 minutes 3-1/2 seconds."
+
+
+def test_normalize_degrees_minutes_and_seconds__degrees_minutes_and_sconds():
+  text = "My house is at longitude 12 deg. 4' 3\"."
+  res = normalize_degrees_minutes_and_seconds(text)
+
+  assert res == "My house is at longitude 12 degrees 4 minutes 3 seconds."
+
+
+def test_normalize_degrees_minutes_and_seconds__only_degrees_and_sconds():
+  text = "My house is at longitude 12 deg. 3\"."
+  res = normalize_degrees_minutes_and_seconds(text)
+
+  assert res == "My house is at longitude 12 degrees 3 seconds."
+
+
+def test_normalize_degrees_minutes_and_seconds__with_west_as_word():
+  text = "My house is at longitude 12 deg. 3\" West."
+  res = normalize_degrees_minutes_and_seconds(text)
+
+  assert res == "My house is at longitude 12 degrees 3 seconds West."
+
+
+def test_normalize_degrees_minutes_and_seconds__with_w():
+  text = "My house is at longitude 12 deg. 3\" W."
+  res = normalize_degrees_minutes_and_seconds(text)
+
+  assert res == "My house is at longitude 12 degrees 3 seconds West"
+
+# endregion

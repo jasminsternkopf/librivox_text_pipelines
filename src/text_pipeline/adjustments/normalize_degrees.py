@@ -59,8 +59,8 @@ ONLY_DEGREES = (rf"({NUMBER_AND_MAYBE_A_HALF}) ?deg\.", r"\1 degrees")
 
 DMS = [MINUTES_AND_SECONDS, DEGREES_AND_SECONDS, DEGREES_AND_MINUTES, ONLY_DEGREES]
 
-DIRECTION = [(r"", ""), (r" N\.", " North"), (r" E\.", " East"),
-             (r" S\.", " South"), (r" W\.", " West")]
+DIRECTION = [(r" N\.", " North"), (r" E\.", " East"),
+             (r" S\.", " South"), (r" W\.", " West"), (r"", "")]
 
 DEG_MIN_SEC_WITH_DIRECTIONS = [(re.compile(from_dms + from_dir), to_dms + to_dir)
                                for from_dms, to_dms in DMS for from_dir, to_dir in DIRECTION]
