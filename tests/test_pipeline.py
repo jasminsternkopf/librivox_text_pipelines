@@ -1,4 +1,4 @@
-from text_pipeline.pipeline import normalize_chronicles_of_newgate
+from text_pipeline.pipeline_LJ_and_DW import normalize_chronicles_of_newgate
 from text_pipeline.auxiliary_methods.txt_files_reading import get_text_files
 
 # region normalize_chronicles_of_newgate

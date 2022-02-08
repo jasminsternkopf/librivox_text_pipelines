@@ -15,6 +15,12 @@ def replace_eg_with_for_example(text: str) -> str:
   return text
 
 
+def replace_etc_with_et_cetera(text: str) -> str:
+  text = text.replace("etc.", "et cetera")
+  text = text.replace("Etc.", "Et cetera")
+  return text
+
+
 def geo_to_george_general(text: str) -> str:
   text = text.replace(" Geo. ", " George ")
   return text

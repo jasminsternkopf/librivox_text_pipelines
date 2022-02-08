@@ -18,6 +18,11 @@ def normalize_temperatures_fahrenheit(text: str) -> str:
   text = FAHRENHEIT.sub(r"\1 degrees Fahrenheit\2", text)
   return text
 
+def normalize_temperatures_general(text: str) -> str:
+  text = normalize_temperatures_celsius(text)
+  text = normalize_temperatures_fahrenheit(text)
+  return text
+
 # latitude and longitude
 
 # (\d{1,3}) ?deg\.[^r][^CFota]

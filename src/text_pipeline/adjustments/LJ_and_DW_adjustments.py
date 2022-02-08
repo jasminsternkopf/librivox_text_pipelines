@@ -334,10 +334,12 @@ def normalize_today_and_tomorrow(text: str) -> str:
   return text
 
 
+THREE_POINTS_BETWEEN_SENTENCES = re.compile(r"(\.\"| )\.\.\. (\"{0,1}[A-Z])")
+THREE_POINTS_MID_SENTENCE = re.compile(r"\.\.\. ([^A-Z])")
+
+
 def normalize_three_and_four_dots(text: str) -> str:
   text = text.replace("....", ".")
-  THREE_POINTS_BETWEEN_SENTENCES = re.compile(r"(\.\"| )\.\.\. (\"{0,1}[A-Z])")
-  THREE_POINTS_MID_SENTENCE = re.compile(r"\.\.\. ([^A-Z])")
   text = THREE_POINTS_BETWEEN_SENTENCES.sub(r"\1 \2", text)
   text = THREE_POINTS_MID_SENTENCE.sub(r"\1", text)
   text = text.replace("...", ".")
@@ -361,24 +363,29 @@ def remove_four_hyphens(text: str) -> str:  # _when_used_directly_after_single_l
   return text
 
 
+DIGITAL_TIME = re.compile(r"(\d):(\d\d)")
+
+
 def remove_colon_in_digital_time_format(text: str) -> str:
-  DIGITAL_TIME = re.compile(r"(\d):(\d\d)")
   text = DIGITAL_TIME.sub(r"\1 \2", text)
   return text
 
 
+HEADING = re.compile(r"\n([A-Z \"]+)\n")
+
+
 def add_dot_after_headings(text: str) -> str:
-  HEADING = re.compile(r"\n([A-Z \"]+)\n")
   text = HEADING.sub(r"\n\1.\n", text)
   return text
 
 
+CAPITAL_LETTERS_WITH_DOT_AND_ALPHANUM_AFTERWARDS = re.compile(r"([^A-Z])([A-Z])\.(\w)")
+CAPITAL_LETTERS_WITH_DOT_AND_NOT_ALPHANUM_AFTERWARDS = re.compile(r"([^A-Z])([A-Z])\.(\W)")
+
+
 def remove_dot_after_single_capital_letters(text: str) -> str:
-  CAPITAL_LETTERS_WITH_DOT_AND_ALPHANUM_AFTERWARDS = re.compile(r"([^A-Z])([A-Z])\.(\w)")
   while text != CAPITAL_LETTERS_WITH_DOT_AND_ALPHANUM_AFTERWARDS.sub(r"\1\2 \3", text):
     text = CAPITAL_LETTERS_WITH_DOT_AND_ALPHANUM_AFTERWARDS.sub(r"\1\2 \3", text)
-
-  CAPITAL_LETTERS_WITH_DOT_AND_NOT_ALPHANUM_AFTERWARDS = re.compile(r"([^A-Z])([A-Z])\.(\W)")
   while text != CAPITAL_LETTERS_WITH_DOT_AND_NOT_ALPHANUM_AFTERWARDS.sub(r"\1\2\3", text):
     text = CAPITAL_LETTERS_WITH_DOT_AND_NOT_ALPHANUM_AFTERWARDS.sub(r"\1\2\3", text)
   return text
@@ -402,15 +409,15 @@ def normalize_inconsistent_year_span_in_in_the_footprints_of_the_padres(text: st
 
 
 MONTH_MAPPINGS: List[Tuple[Pattern, str]] = [
-  (re.compile("jan\.", re.IGNORECASE), "January"),
-  (re.compile("feb\.", re.IGNORECASE), "February"),
-  (re.compile("mar\.", re.IGNORECASE), "March"),
-  (re.compile("apr\.", re.IGNORECASE), "April"),
-  (re.compile("aug\.", re.IGNORECASE), "August"),
-  (re.compile("sept\.", re.IGNORECASE), "September"),
-  (re.compile("oct\.", re.IGNORECASE), "October"),
-  (re.compile("nov\.", re.IGNORECASE), "November"),
-  (re.compile("dec\.", re.IGNORECASE), "December")
+  (re.compile(" jan\.", re.IGNORECASE), " January"),
+  (re.compile(" feb\.", re.IGNORECASE), " February"),
+  (re.compile(" mar\.", re.IGNORECASE), " March"),
+  (re.compile(" apr\.", re.IGNORECASE), " April"),
+  (re.compile(" aug\.", re.IGNORECASE), " August"),
+  (re.compile(" sept\.", re.IGNORECASE), " September"),
+  (re.compile(" oct\.", re.IGNORECASE), " October"),
+  (re.compile(" nov\.", re.IGNORECASE), " November"),
+  (re.compile(" dec\.", re.IGNORECASE), " December")
 ]
 
 
