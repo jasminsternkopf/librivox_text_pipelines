@@ -45,7 +45,7 @@ UNIT_MAPPINGS_WEIGHT_SINGULAR_AMERICAN = [
   ("lb", "pound"),
 ]
 
-POSSIBLE_FOLLOWING_CHARS_AFTER_ABBREVIATION = r"[ ,:;)'\"\.!\?]"
+POSSIBLE_FOLLOWING_CHARS_AFTER_ABBREVIATION = "[ ,:;)'\"\.!\?]"
 
 
 def normalize_all_units(text: str) -> str:
@@ -55,13 +55,15 @@ def normalize_all_units(text: str) -> str:
   return text
 
 
-ONE_HOUR_AND_MINUTES = re.compile(rf" 1 ?h\.? (\d{1,2}) ?m\.?({POSSIBLE_FOLLOWING_CHARS_AFTER_ABBREVIATION})")
-#HOURS_AND_MINUTES = re.compile(rf"(\d) ?h\.? (\d{1,2}) ?m\.?({POSSIBLE_FOLLOWING_CHARS_AFTER_ABBREVIATION})")
-HOURS_AND_MINUTES = re.compile(rf"(\d) ?h\.? (\d{1,2}) ?m\.?([ ,:;)'\"\.!\?])")
+ONE_HOUR_AND_MINUTES = re.compile(
+  rf" 1 ?h\.? (\d{{1,2}}) ?m\.?({POSSIBLE_FOLLOWING_CHARS_AFTER_ABBREVIATION})")
+HOURS_AND_MINUTES = re.compile(
+  rf"(\d) ?h\.? (\d{{1,2}}) ?m\.?({POSSIBLE_FOLLOWING_CHARS_AFTER_ABBREVIATION})")
+# ALWAYS REMEMBER: DOULBE {{n,m}} IF USING rf MODE
 
 
 def normalize_time_units(text: str) -> str:
-  text = ONE_HOUR_AND_MINUTES.sub(r" one hour \1 minutes\2", text)
+  text = ONE_HOUR_AND_MINUTES.sub(r" 1 hour \1 minutes\2", text)
   text = HOURS_AND_MINUTES.sub(r"\1 hours \2 minutes\3", text)
   text = normalize_given_units(text, UNIT_MAPPINGS_TIME_SINGULAR)
   return text
