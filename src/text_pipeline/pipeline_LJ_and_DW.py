@@ -1,6 +1,6 @@
 from text_pipeline.adjustments.abbreviations import expand_abbreviations
 from text_pipeline.adjustments.numbers import normalize_numbers
-from text_pipeline.adjustments.LJ_and_DW_adjustments import (
+from LJ_and_DW_adjustments import (
     add_dot_after_headings, bible_verse, expand_and_a_half,
     expand_latin_abbreviations, geo_to_george,
     insert_space_before_and_after_double_hyphen, normalize_am_and_pm,
