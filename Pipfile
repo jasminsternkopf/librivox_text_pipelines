@@ -10,6 +10,8 @@ nltk = "*"
 spacy = "*"
 pyenchant = "*"
 num2words = "*"
+english-text-normalization = {editable = true, path = "./../english_text_normalization"}
+
 
 [dev-packages]
 text-pipeline = {editable = true, path = "."}

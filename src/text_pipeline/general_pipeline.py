@@ -76,7 +76,7 @@ def general_pipeline(text: str) -> str:
   text = text.strip()
   return text
 # alles in [] wegcutten \[[^I\dFGS_g]
-
+# Anyway ... as I was saying ... Let's see ... I had lost my head, and--" testcase mit ...
 
 if __name__ == "__main__":
   # create_pickle_containing_all_books(Path("../DATA/data/librispeech-lm-corpus/corpus"))
