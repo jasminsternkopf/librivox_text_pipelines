@@ -1,7 +1,4 @@
-from english_text_normalization import \
-    normalize_our_king_names as normalize_king_names_without_dot
-from LJ_and_DW_adjustments import (
-    geo_to_george, normalize_roman_numerals_in_chronicles_of_newgate,
+from LJ_and_DW_adjustments import (normalize_roman_numerals_in_chronicles_of_newgate,
     remove_indented_lines,
     remove_quotation_marks_as_itemization_in_other_cases)
 
@@ -13,39 +10,7 @@ def test_normalize_roman_numberals__in_chronicles_of_newgate():
   assert res == " one. The male debtors' side.   two. The female debtors' side.   three. The chapel yard.   four. The middle yard.   five. The master felons' side.   six. The female felons' side.   seven. The state side.   eight. The press yard."
 
 
-def test_geo_to_george():
-  text = "9th Geo. IV."
-  res = geo_to_george(text)
 
-  assert res == "9th George IV."
-
-
-def test_geo_to_george_with_c_and_s():
-  text = "9th Geo. III. c. 64, s. 5"
-  res = geo_to_george(text)
-
-  assert res == "9th George III. c 64, s 5"
-
-
-def test_geo_to_george_with_c_no_s():
-  text = "9th Geo. I. c. 64"
-  res = geo_to_george(text)
-
-  assert res == "9th George I. c 64"
-
-
-def test_geo_to_george_with_cap_and_s():
-  text = "9th Geo. IV. cap. 64, s. 45"
-  res = geo_to_george(text)
-
-  assert res == "9th George IV. cap 64, s 45"
-
-
-def test_geo_to_george_with_cap_no_s():
-  text = "9th Geo. IV. cap. 64"
-  res = geo_to_george(text)
-
-  assert res == "9th George IV. cap 64"
 
 
 def test_remove_indented_lines():
@@ -74,10 +39,3 @@ def test_remove_remove_quotation_marks_in_other_cases_do_not_match_because_is_qu
   res = remove_quotation_marks_as_itemization_in_other_cases(text)
 
   assert res == text
-
-
-def test_normalize_king_names_without_dot():
-  text = "Charles III and James I, Henry V and Edward VI."
-  res = normalize_king_names_without_dot(text)
-
-  assert res == "Charles the third and James the first, Henry the fifth and Edward the sixth."

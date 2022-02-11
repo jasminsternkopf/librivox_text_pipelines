@@ -10,7 +10,7 @@ from english_text_normalization import (
     remove_repeated_spaces, remove_sic, remove_underscore_characters,
     replace_eg_with_for_example, replace_etc_with_et_cetera,
     replace_four_hyphens_by_two, replace_hyphen_between_numbers_with_to)
-from LJ_and_DW_adjustments import (other_plant_life_adjustments,
+from LJ_and_DW_adjustments import (normalize_pound, other_plant_life_adjustments,
                                    remove_indented_lines)
 
 
@@ -25,6 +25,7 @@ def normalize_romance_of_plant_life(text: str) -> str:
   text = replace_etc_with_et_cetera(text)
   text = replace_eg_with_for_example(text)
   text = remove_dot_after_single_capital_letters(text)
+  text = normalize_pound(text)
   text = normalize_weight_units(text)
   text = normalize_latitude_and_longitude(text)
   text = normalize_degrees_minutes_and_seconds(text)

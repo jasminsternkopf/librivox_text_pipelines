@@ -1,17 +1,5 @@
 import re
 
-
-def geo_to_george(text: str) -> str:
-  #text = text.replace("Geo.", "George")
-  GEO_AND_C_OR_CAP = re.compile(r"Geo\. ([IVX]{1,3}\.) (c(ap)?)\. (\d)")
-  text = GEO_AND_C_OR_CAP.sub(r"George \1 \2 \4", text)
-  S_AFTER_GEO = re.compile(r", s. (\d)")
-  text = S_AFTER_GEO.sub(r", s \1", text)
-  GEO = re.compile(r"Geo\. ([IVX]{1,3}\.)")
-  text = GEO.sub(r"George \1", text)
-  return text
-
-
 ROMAN_NUMERAL_MAPPINGS = [
   (re.compile(r" i\. The"), " one. The"),
   (re.compile(r" ii\. The"), " two. The"),
