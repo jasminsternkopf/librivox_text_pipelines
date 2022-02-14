@@ -1,5 +1,6 @@
-from LJ_and_DW_adjustments import (normalize_roman_numerals_in_chronicles_of_newgate,
-    remove_indented_lines,
+from LJ_and_DW_adjustments import (
+    normalize_item_list, normalize_no_and_roman_numeral,
+    normalize_roman_numerals_in_chronicles_of_newgate, remove_indented_lines,
     remove_quotation_marks_as_itemization_in_other_cases)
 
 
@@ -8,9 +9,6 @@ def test_normalize_roman_numberals__in_chronicles_of_newgate():
   res = normalize_roman_numerals_in_chronicles_of_newgate(text)
 
   assert res == " one. The male debtors' side.   two. The female debtors' side.   three. The chapel yard.   four. The middle yard.   five. The master felons' side.   six. The female felons' side.   seven. The state side.   eight. The press yard."
-
-
-
 
 
 def test_remove_indented_lines():
@@ -39,3 +37,17 @@ def test_remove_remove_quotation_marks_in_other_cases_do_not_match_because_is_qu
   res = remove_quotation_marks_as_itemization_in_other_cases(text)
 
   assert res == text
+
+
+def test_normalize_no_and_roman_numeral():
+  text = "I found No. II., you found No. V.!"
+  res = normalize_no_and_roman_numeral(text)
+
+  assert res == "I found number 2, you found number 5!"
+
+
+def test_normalize_item_list():
+  text = "      Item   I. The tree where Cook was struck.\n        \"   II. The rock where Cook fell.\n        \"  III. The altar on the hill-top.\n        \"   IV. The riven palms.\n        \"    V. The sole survivor,--the boy that ran.\n        \"   VI. A specimen sepulchre in the cliff."
+  res = normalize_item_list(text)
+
+  assert res == "      Item   I. The tree where Cook was struck.\n        Item 2 The rock where Cook fell.\n        Item 3 The altar on the hill-top.\n        Item 4 The riven palms.\n        Item 5 The sole survivor,--the boy that ran.\n        Item 6 A specimen sepulchre in the cliff."

@@ -110,3 +110,45 @@ def remove_dots_of_ie(text: str) -> str:
 def normalize_inconsistent_year_span_in_in_the_footprints_of_the_padres(text: str) -> str:
   text = text.replace("1834-35", "1834 and 35")
   return text
+
+
+ROMAN_NUMERALS_TILL_SIX = ["I", "II", "III", "IV", "V", "VI"]
+NO_AND_ROMAN_NUMERAL = [re.compile(rf" No\. {num}\.") for num in ROMAN_NUMERALS_TILL_SIX]
+
+
+def normalize_no_and_roman_numeral(text: str) -> str:
+  # only I to V appear in south sea idyls
+  for number in range(1, 6):
+    text = NO_AND_ROMAN_NUMERAL[number - 1].sub(f" number {number}", text)
+  return text
+
+
+def normalize_confessor_and_pere_fidelis(text: str) -> str:
+  text = text.replace("_Conf._", "Confessor.")
+  text = text.replace("_Père F._", "Père Fidelis.")
+  return text
+
+
+ITEM_PLUS_NUMERAL = [re.compile(rf"\"\s+{numeral}\.") for numeral in ROMAN_NUMERALS_TILL_SIX[1:]]
+
+
+def normalize_item_list(text: str) -> str:
+  for number in range(2, 7):
+    text = ITEM_PLUS_NUMERAL[number - 2].sub(f"Item {number}", text)
+  return text
+
+
+def four_hyphens_followed_by_dot_into_blank(text: str) -> str:
+  text = text.replace(" ----.", " blank.")
+  return text
+
+
+def footnote_normalization_in_south_sea_idyls(text: str) -> str:
+  text = text.replace("[A] Haleakala", "Footnote Haleakala")
+  text = text.replace("[A]", "")
+  return text
+
+
+def L_into_Lew(text: str) -> str:
+  text = text.replace("L----", "Lew")
+  return text
