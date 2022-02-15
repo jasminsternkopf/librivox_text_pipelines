@@ -1,6 +1,6 @@
 from english_text_normalization import (
     expand_abbreviations, insert_space_before_and_after_double_hyphen,
-    normalize_numbers, normalize_our_king_names, normalize_three_and_four_dots,
+    normalize_numbers, normalize_three_and_four_dots,
     normalize_today_and_tomorrow, remove_dot_after_single_capital_letters,
     remove_double_hyphen_before_or_after_colon, remove_equal_sign,
     remove_everything_in_square_brackets, remove_four_hyphens,
