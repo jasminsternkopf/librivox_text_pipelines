@@ -160,3 +160,9 @@ MINUTE_COLON_SECONDS = re.compile(r"(\d):(\d)")
 def normalize_minute_colon_seconds(text: str) -> str:
   text = MINUTE_COLON_SECONDS.sub(r"\1 and \2", text)
   return text
+
+
+def normalize_hell_and_damned(text: str) -> str:
+  text = text.replace("h--l", "hell")
+  text = text.replace("d----d", "damned")
+  return text
