@@ -1,7 +1,7 @@
 from english_text_normalization import (
     expand_abbreviations, insert_space_before_and_after_double_hyphen,
     normalize_numbers, normalize_three_and_four_dots,
-    normalize_today_and_tomorrow, remove_dot_after_single_capital_letters,
+    normalize_today_tomorrow_and_tonight, remove_dot_after_single_capital_letters,
     remove_double_hyphen_before_or_after_colon, remove_equal_sign,
     remove_everything_in_square_brackets, remove_four_hyphens,
     remove_linebreaks, remove_plus,
@@ -28,7 +28,7 @@ def normalize_south_sea_idyls(text: str) -> str:
   text = footnote_normalization_in_south_sea_idyls(text)
   text = remove_everything_in_square_brackets(text)
   text = remove_dot_after_single_capital_letters(text)
-  text = normalize_today_and_tomorrow(text)
+  text = normalize_today_tomorrow_and_tonight(text)
   text = normalize_three_and_four_dots(text)
   text = replace_etc_with_et_cetera(text)
   text = expand_abbreviations(text)

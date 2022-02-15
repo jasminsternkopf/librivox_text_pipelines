@@ -152,3 +152,11 @@ def footnote_normalization_in_south_sea_idyls(text: str) -> str:
 def L_into_Lew(text: str) -> str:
   text = text.replace("L----", "Lew")
   return text
+
+
+MINUTE_COLON_SECONDS = re.compile(r"(\d):(\d)")
+
+
+def normalize_minute_colon_seconds(text: str) -> str:
+  text = MINUTE_COLON_SECONDS.sub(r"\1 and \2", text)
+  return text

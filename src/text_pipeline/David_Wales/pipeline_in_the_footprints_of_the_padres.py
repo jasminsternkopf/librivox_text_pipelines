@@ -3,7 +3,7 @@ from english_text_normalization import (
     insert_space_before_and_after_double_hyphen, normalize_am_and_pm,
     normalize_degrees_minutes_and_seconds, normalize_numbers,
     normalize_our_king_names, normalize_second_and_third_when_abbr_with_d,
-    normalize_three_and_four_dots, normalize_today_and_tomorrow,
+    normalize_three_and_four_dots, normalize_today_tomorrow_and_tonight,
     remove_colon_in_digital_time_format,
     remove_dot_after_single_capital_letters,
     remove_double_hyphen_before_or_after_colon, remove_four_hyphens,
@@ -31,7 +31,7 @@ def normalize_in_the_footprints_of_the_padres(text: str) -> str:
   text = remove_dot_after_single_capital_letters(text)
   text = remove_dots_of_ie(text)
   text = normalize_am_and_pm(text)
-  text = normalize_today_and_tomorrow(text)
+  text = normalize_today_tomorrow_and_tonight(text)
   text = normalize_three_and_four_dots(text)
   text = replace_no_with_number(text)
   text = expand_abbreviations(text)
