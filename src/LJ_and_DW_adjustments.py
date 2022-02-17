@@ -1,14 +1,14 @@
 import re
 
 ROMAN_NUMERAL_MAPPINGS = [
-  (re.compile(r" i\. The"), " one. The"),
-  (re.compile(r" ii\. The"), " two. The"),
-  (re.compile(r" iii\. The"), " three. The"),
-  (re.compile(r" iv\. The"), " four. The"),
-  (re.compile(r" v\. The"), " five. The"),
-  (re.compile(r" vi\. The"), " six. The"),
-  (re.compile(r" vii\. The"), " seven. The"),
-  (re.compile(r" viii\. The"), " eight. The")
+  (re.compile(r" i\. The"), " One. The"),
+  (re.compile(r" ii\. The"), " Two. The"),
+  (re.compile(r" iii\. The"), " Three. The"),
+  (re.compile(r" iv\. The"), " Four. The"),
+  (re.compile(r" v\. The"), " Five. The"),
+  (re.compile(r" vi\. The"), " Six. The"),
+  (re.compile(r" vii\. The"), " Seven. The"),
+  (re.compile(r" viii\. The"), " Eight. The")
 ]
 
 
@@ -23,12 +23,7 @@ def other_chronicles_of_newgate_adujstments(text: str) -> str:
   text = text.replace(" LL.", " LL ")
   text = text.replace("Schedule I", "Schedule one")
   text = text.replace("It was I", "It was I.")
-  text = text.replace("Victoria, cap.", "Victoria, cap")
-  return text
-
-
-def bible_verse(text: str) -> str:
-  text = text.replace("Sam. iii.", "Samuel three")
+  text = text.replace(" inst. ", " instead ")
   return text
 
 
@@ -64,6 +59,7 @@ def other_haunted_london_adjustments(text: str) -> str:
   text = text.replace("MSS.", "M S S")
   text = text. replace("c. 25", "c 25")
   text = text.replace("£9: 2: 3", "£9 2 and 3")
+  text = text.replace("Sam. iii.", "Samuel three")
   return text
 
 
@@ -104,6 +100,11 @@ def normalize_roman_numerals_for_two_and_three(text: str) -> str:
 def remove_dots_of_ie(text: str) -> str:
   text = text.replace("i.e.,", "i e,")
   text = text.replace("i. e.", "i e")
+  return text
+
+
+def remove_dot_of_viz(text: str) -> str:
+  text = text.replace(" viz.", " viz")
   return text
 
 
