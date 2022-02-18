@@ -18,7 +18,7 @@ def normalize_roman_numerals_in_chronicles_of_newgate(text: str) -> str:
   return text
 
 
-def other_chronicles_of_newgate_adujstments(text: str) -> str:
+def other_chronicles_of_newgate_adjustments(text: str) -> str:
   text = text.replace("&c.", "et cetera")
   text = text.replace(" LL.", " LL ")
   text = text.replace("Schedule I", "Schedule one")

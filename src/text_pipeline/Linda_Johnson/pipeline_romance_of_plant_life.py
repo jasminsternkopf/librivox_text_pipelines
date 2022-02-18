@@ -1,9 +1,10 @@
 from english_text_normalization import (
     expand_abbreviations, expand_and_a_half,
     insert_space_before_and_after_double_hyphen,
-    normalize_degrees_minutes_and_seconds, normalize_latitude_and_longitude,
-    normalize_length_units, normalize_numbers, normalize_our_king_names,
-    normalize_per_cent_dot_if_not_end_of_sentence,
+    normalize_degrees_minutes_and_seconds,
+    normalize_king_name_followed_by_roman_numeral,
+    normalize_latitude_and_longitude, normalize_length_units,
+    normalize_numbers, normalize_per_cent_dot,
     normalize_point_before_numbers, normalize_pounds_shillings_and_pence,
     normalize_three_and_four_dots, normalize_today_tomorrow_and_tonight,
     normalize_weight_units,
@@ -27,18 +28,18 @@ def normalize_romance_of_plant_life(text: str) -> str:
   text = remove_underscore_characters(text)
   text = normalize_pounds_shillings_and_pence(text)
   text = normalize_three_and_four_dots(text)
-  text = normalize_our_king_names(text)
+  text = normalize_king_name_followed_by_roman_numeral(text)
   text = normalize_today_tomorrow_and_tonight(text)
   text = replace_etc_with_et_cetera(text)
   text = replace_eg_with_for_example(text)
   text = remove_dot_of_viz(text)
-  text = normalize_per_cent_dot_if_not_end_of_sentence(text)
-  text = remove_dot_after_single_capital_letters(text)
-  text = normalize_pound(text)
+  text = normalize_per_cent_dot(text)
   text = normalize_weight_units(text)
   text = normalize_length_units(text)
   text = normalize_latitude_and_longitude(text)
   text = normalize_degrees_minutes_and_seconds(text)
+  text = remove_dot_after_single_capital_letters(text)
+  text = normalize_pound(text)
   text = normalize_point_before_numbers(text)
   text = expand_and_a_half(text)
   text = other_plant_life_adjustments(text)

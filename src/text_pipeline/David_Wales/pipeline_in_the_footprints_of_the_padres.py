@@ -1,9 +1,10 @@
 from english_text_normalization import (
     add_dot_after_headings, expand_abbreviations, expand_and_a_half,
     insert_space_before_and_after_double_hyphen, normalize_am_and_pm,
-    normalize_degrees_minutes_and_seconds, normalize_numbers,
-    normalize_our_king_names, normalize_second_and_third_when_abbr_with_d,
-    normalize_three_and_four_dots, normalize_today_tomorrow_and_tonight,
+    normalize_degrees_minutes_and_seconds,
+    normalize_king_name_followed_by_roman_numeral, normalize_numbers,
+    normalize_second_and_third_when_abbr_with_d, normalize_three_and_four_dots,
+    normalize_today_tomorrow_and_tonight,
     number_to_word_when_number_at_beginning_of_sentence,
     remove_colon_in_digital_time_format,
     remove_dot_after_single_capital_letters,
@@ -27,9 +28,8 @@ def normalize_in_the_footprints_of_the_padres(text: str) -> str:
   text = remove_linebreaks(text)
   text = remove_numbers_in_square_brackets(text)
   text = replace_etc_with_et_cetera(text)
-  text = normalize_our_king_names(text)
+  text = normalize_king_name_followed_by_roman_numeral(text)
   text = write_out_month_abbreviations(text)
-  text = remove_dot_after_single_capital_letters(text)
   text = normalize_roman_numerals_for_two_and_three(text)
   text = remove_dot_after_single_capital_letters(text)
   text = remove_dots_of_ie(text)
